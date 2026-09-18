@@ -7,6 +7,10 @@
 
 <title>Savings, Wealth & Retirement Simulator</title>
 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wealth Planner">
+
 <style>
 :root{
   --bg:#080b10;
@@ -22,13 +26,17 @@
   --orange:#f2a65a;
   --red:#ff7373;
   --purple:#9c7cf4;
+  --gold:#e2b85c;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   background:var(--bg);
   color-scheme:dark;
+  scroll-behavior:smooth;
 }
 
 body{
@@ -77,6 +85,7 @@ h1{
   border-radius:23px;
   padding:25px;
   margin-bottom:23px;
+  scroll-margin-top:10px;
 }
 
 .section-title{
@@ -94,7 +103,9 @@ h1{
   display:none!important;
 }
 
-/* HOME */
+/* =====================================================
+   HOME
+===================================================== */
 
 .module-grid{
   display:grid;
@@ -160,7 +171,9 @@ h1{
   margin-top:3px;
 }
 
-/* MODULE HEADER */
+/* =====================================================
+   MODULE HEADER
+===================================================== */
 
 .module-header{
   display:flex;
@@ -191,7 +204,9 @@ h1{
   margin-top:6px;
 }
 
-/* FORM */
+/* =====================================================
+   FORM
+===================================================== */
 
 .form-grid{
   display:grid;
@@ -221,7 +236,8 @@ input,select{
   outline:none;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
   border-color:var(--blue);
 }
 
@@ -249,7 +265,9 @@ input:focus,select:focus{
   margin-bottom:14px;
 }
 
-/* TOGGLE */
+/* =====================================================
+   SEGMENTED
+===================================================== */
 
 .segmented{
   display:grid;
@@ -276,7 +294,9 @@ input:focus,select:focus{
   font-weight:700;
 }
 
-/* BUTTONS */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .btn{
   border:1px solid var(--border);
@@ -315,7 +335,9 @@ input:focus,select:focus{
   margin-top:18px;
 }
 
-/* INVESTMENTS */
+/* =====================================================
+   INVESTMENTS
+===================================================== */
 
 .investment-list{
   display:flex;
@@ -375,10 +397,17 @@ input:focus,select:focus{
   font-size:14px;
 }
 
-.good{color:var(--green)!important}
-.warn{color:var(--orange)!important}
+.good{
+  color:var(--green)!important;
+}
 
-/* RESULT EQUATION */
+.warn{
+  color:var(--orange)!important;
+}
+
+/* =====================================================
+   RESULTS
+===================================================== */
 
 .result-box{
   margin-top:22px;
@@ -440,7 +469,91 @@ input:focus,select:focus{
   font-weight:800;
 }
 
-/* CAPITAL SOURCES */
+/* =====================================================
+   PURCHASING POWER
+===================================================== */
+
+.purchasing-box{
+  margin-top:18px;
+  border:1px solid #5d4e2c;
+  background:#17140d;
+  border-radius:19px;
+  padding:18px;
+}
+
+.purchasing-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:6px;
+}
+
+.purchasing-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.optional-badge{
+  color:#e7c875;
+  border:1px solid #6c5a2e;
+  background:#28200f;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+}
+
+.purchasing-desc{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+.purchasing-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.purchasing-result{
+  margin-top:15px;
+  padding-top:14px;
+  border-top:1px solid #463b22;
+}
+
+.purchase-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:6px 0;
+}
+
+.purchase-row span:first-child{
+  color:var(--muted);
+}
+
+.purchase-value{
+  font-weight:800;
+}
+
+.purchase-value.real{
+  color:#e7c875;
+  font-size:20px;
+}
+
+.info-note{
+  margin-top:13px;
+  background:#10151c;
+  border-left:3px solid var(--gold);
+  border-radius:8px;
+  padding:11px 12px;
+  color:#aeb8c5;
+  font-size:13px;
+}
+
+/* =====================================================
+   CAPITAL SOURCES
+===================================================== */
 
 .capital-equation{
   display:grid;
@@ -467,7 +580,9 @@ input:focus,select:focus{
   margin-top:3px;
 }
 
-/* TIMELINE */
+/* =====================================================
+   TIMELINE
+===================================================== */
 
 .timeline-panel{
   margin-top:18px;
@@ -538,7 +653,9 @@ input:focus,select:focus{
   margin-top:3px;
 }
 
-/* MASTER TIMELINE */
+/* =====================================================
+   MASTER TIMELINE
+===================================================== */
 
 .master-wrap{
   overflow-x:auto;
@@ -594,11 +711,25 @@ input:focus,select:focus{
   white-space:nowrap;
 }
 
-.bar.save{background:#1c664f}
-.bar.wealth{background:#214f88}
-.bar.retire{background:#684b89}
-.bar.inflation{background:#77592d}
-.bar.return{background:#3f5065}
+.bar.save{
+  background:#1c664f;
+}
+
+.bar.wealth{
+  background:#214f88;
+}
+
+.bar.retire{
+  background:#684b89;
+}
+
+.bar.inflation{
+  background:#77592d;
+}
+
+.bar.return{
+  background:#3f5065;
+}
 
 .marker{
   position:absolute;
@@ -619,7 +750,14 @@ input:focus,select:focus{
   transform:rotate(45deg);
 }
 
-/* COMPLETE PLAN */
+.master-section{
+  border-color:#4d416d;
+  background:#12101d;
+}
+
+/* =====================================================
+   COMPLETE PLAN
+===================================================== */
 
 .plan-summary{
   display:grid;
@@ -645,14 +783,9 @@ input:focus,select:focus{
   margin-top:5px;
 }
 
-/* MODAL-LIKE MASTER AREA */
-
-.master-section{
-  border-color:#4d416d;
-  background:#12101d;
-}
-
-/* FOOTER */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 .disclaimer{
   color:#718093;
@@ -661,13 +794,16 @@ input:focus,select:focus{
   text-align:center;
 }
 
-/* RESPONSIVE */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:800px){
 
   .module-grid,
   .form-grid,
-  .plan-summary{
+  .plan-summary,
+  .purchasing-grid{
     grid-template-columns:1fr;
   }
 
@@ -731,8 +867,14 @@ input:focus,select:focus{
     flex-direction:column;
   }
 
-  input,select{
+  input,
+  select{
     font-size:17px;
+  }
+
+  .purchase-row{
+    flex-direction:column;
+    gap:2px;
   }
 
 }
@@ -744,30 +886,38 @@ input:focus,select:focus{
 <div class="container">
 
 <header class="hero">
-  <h1>Savings, Wealth &amp; Retirement Simulator</h1>
+
+  <h1>
+    Savings, Wealth &amp; Retirement Simulator
+  </h1>
+
   <div class="subtitle">
-    Plan one financial objective on its own, or connect several activities
-    into a complete financial plan.
+    Build savings, diversify investments, grow wealth and plan retirement income while accounting for inflation.
   </div>
+
 </header>
 
 
 <!-- =====================================================
-     HOME / MODULE SELECTOR
+     HOME
 ===================================================== -->
 
 <section class="section" id="home">
 
-  <h2 class="section-title">What do you want to plan?</h2>
+  <h2 class="section-title">
+    What do you want to plan?
+  </h2>
 
   <div class="section-subtitle">
     Choose the financial question that matters to you now.
-    You do not need to complete the other modules.
+    Each module can be used independently.
   </div>
+
 
   <div class="module-grid">
 
-    <button class="module-card active"
+    <button
+      class="module-card active"
       id="cardSavings"
       onclick="openModule('savings')">
 
@@ -784,7 +934,8 @@ input:focus,select:focus{
     </button>
 
 
-    <button class="module-card"
+    <button
+      class="module-card"
       id="cardWealth"
       onclick="openModule('wealth')">
 
@@ -801,7 +952,8 @@ input:focus,select:focus{
     </button>
 
 
-    <button class="module-card"
+    <button
+      class="module-card"
       id="cardRetirement"
       onclick="openModule('retirement')">
 
@@ -823,18 +975,23 @@ input:focus,select:focus{
   <div class="complete-plan">
 
     <div>
+
       <div class="complete-title">
         🧭 Complete Financial Plan
       </div>
 
       <div class="complete-desc">
-        Want to see several financial activities together on one timeline?
+        See several financial activities together on one timeline.
       </div>
+
     </div>
 
-    <button class="btn purple"
+    <button
+      class="btn purple"
       onclick="showCompletePlan()">
+
       View Complete Plan
+
     </button>
 
   </div>
@@ -842,12 +999,12 @@ input:focus,select:focus{
 </section>
 
 
-
 <!-- =====================================================
-     SAVINGS MODULE
+     SAVINGS
 ===================================================== -->
 
-<section class="section module-section"
+<section
+  class="section module-section"
   id="savingsModule">
 
   <div class="module-header">
@@ -857,6 +1014,7 @@ input:focus,select:focus{
       <div class="big-icon">🌱</div>
 
       <div>
+
         <h2 class="section-title">
           Savings
         </h2>
@@ -868,6 +1026,7 @@ input:focus,select:focus{
         <span class="badge">
           Can be used independently
         </span>
+
       </div>
 
     </div>
@@ -875,80 +1034,134 @@ input:focus,select:focus{
   </div>
 
 
+  <div class="subsection-title">
+    1. How much will you save?
+  </div>
+
+  <div class="subsection-desc">
+    Enter your current savings and regular monthly saving plan.
+  </div>
+
+
   <div class="form-grid">
 
     <div>
-      <label>Starting savings</label>
 
-      <input id="sStarting"
+      <label>
+        Starting savings
+      </label>
+
+      <input
+        id="sStarting"
         type="text"
         inputmode="decimal"
         value="10,000.00"
         onfocus="moneyFocus(this)"
         onblur="moneyBlur(this);calculateSavings()">
+
     </div>
 
 
     <div>
-      <label>Monthly savings</label>
 
-      <input id="sMonthly"
+      <label>
+        Monthly savings
+      </label>
+
+      <input
+        id="sMonthly"
         type="text"
         inputmode="decimal"
         value="500.00"
         onfocus="moneyFocus(this)"
         onblur="moneyBlur(this);calculateSavings()">
+
     </div>
 
 
     <div>
-      <label>Increase monthly savings each year</label>
 
-      <select id="sIncrease"
+      <label>
+        Annual increase in your monthly savings
+      </label>
+
+      <select
+        id="sIncrease"
         onchange="calculateSavings()">
 
-        <option value="0">No increase</option>
-        <option value=".02">2.00%</option>
-        <option value=".03" selected>3.00%</option>
-        <option value=".05">5.00%</option>
-        <option value=".08">8.00%</option>
+        <option value="0">
+          No increase
+        </option>
+
+        <option value=".02">
+          2.00%
+        </option>
+
+        <option value=".03" selected>
+          3.00%
+        </option>
+
+        <option value=".05">
+          5.00%
+        </option>
+
+        <option value=".08">
+          8.00%
+        </option>
 
       </select>
+
+      <div class="helper">
+        Example: RM500 per month with a 3% annual increase becomes RM515 per month in year 2.
+      </div>
+
     </div>
 
 
     <div>
-      <label>Save for</label>
 
-      <select id="sYears"
+      <label>
+        Save for
+      </label>
+
+      <select
+        id="sYears"
         onchange="calculateSavings()">
 
-        <option value="5">5 years</option>
-        <option value="10">10 years</option>
-        <option value="15" selected>15 years</option>
-        <option value="20">20 years</option>
-        <option value="25">25 years</option>
-        <option value="30">30 years</option>
-        <option value="40">40 years</option>
-        <option value="50">50 years</option>
+        <option value="5">
+          5 years
+        </option>
+
+        <option value="10" selected>
+          10 years
+        </option>
+
+        <option value="15">
+          15 years
+        </option>
+
+        <option value="20">
+          20 years
+        </option>
+
+        <option value="25">
+          25 years
+        </option>
+
+        <option value="30">
+          30 years
+        </option>
+
+        <option value="40">
+          40 years
+        </option>
+
+        <option value="50">
+          50 years
+        </option>
 
       </select>
-    </div>
 
-
-    <div>
-      <label>Inflation assumption</label>
-
-      <select id="sInflation"
-        onchange="calculateSavings()">
-
-        <option value=".02">2.00%</option>
-        <option value=".025">2.50%</option>
-        <option value=".03" selected>3.00%</option>
-        <option value=".035">3.50%</option>
-        <option value=".04">4.00%</option>
-
-      </select>
     </div>
 
   </div>
@@ -959,32 +1172,39 @@ input:focus,select:focus{
   <div class="subsection">
 
     <div class="subsection-title">
-      Where will these savings be held or invested?
+      2. Where will your savings grow?
     </div>
 
     <div class="subsection-desc">
-      Keep it simple with one investment, or divide savings across several.
+      Choose one place for your savings, or divide them across several investments.
     </div>
 
 
     <div class="segmented">
 
-      <button id="sSingleBtn"
+      <button
+        id="sSingleBtn"
         class="segment active"
         onclick="setSavingsApproach('single')">
+
         Single investment
+
       </button>
 
-      <button id="sDiversifiedBtn"
+      <button
+        id="sDiversifiedBtn"
         class="segment"
         onclick="setSavingsApproach('diversified')">
+
         Diversified
+
       </button>
 
     </div>
 
 
-    <div id="sInvestmentArea"
+    <div
+      id="sInvestmentArea"
       style="margin-top:15px">
     </div>
 
@@ -996,51 +1216,200 @@ input:focus,select:focus{
   <div class="result-box">
 
     <div class="result-title">
-      What this savings plan could produce
+      3. What could you accumulate?
     </div>
+
 
     <div class="equation">
 
       <div class="eq-item">
-        <div class="eq-label">Starting savings</div>
-        <div class="eq-value" id="sResultStart">RM0</div>
+
+        <div class="eq-label">
+          Starting savings
+        </div>
+
+        <div
+          class="eq-value"
+          id="sResultStart">
+
+          RM0
+
+        </div>
+
       </div>
 
-      <div class="eq-symbol">+</div>
 
-      <div class="eq-item">
-        <div class="eq-label">Savings added</div>
-        <div class="eq-value" id="sResultContrib">RM0</div>
+      <div class="eq-symbol">
+        +
       </div>
 
-      <div class="eq-symbol">+</div>
 
       <div class="eq-item">
-        <div class="eq-label">Investment growth</div>
-        <div class="eq-value" id="sResultGrowth">RM0</div>
+
+        <div class="eq-label">
+          Money saved
+        </div>
+
+        <div
+          class="eq-value"
+          id="sResultContrib">
+
+          RM0
+
+        </div>
+
       </div>
 
-      <div class="eq-symbol">=</div>
+
+      <div class="eq-symbol">
+        +
+      </div>
+
 
       <div class="eq-item">
-        <div class="eq-label">Ending savings / wealth</div>
-        <div class="eq-value good" id="sResultEnd">RM0</div>
+
+        <div class="eq-label">
+          Interest / investment growth
+        </div>
+
+        <div
+          class="eq-value"
+          id="sResultGrowth">
+
+          RM0
+
+        </div>
+
+      </div>
+
+
+      <div class="eq-symbol">
+        =
+      </div>
+
+
+      <div class="eq-item">
+
+        <div class="eq-label">
+          Accumulated savings
+        </div>
+
+        <div
+          class="eq-value good"
+          id="sResultEnd">
+
+          RM0
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- PURCHASING POWER -->
+
+  <div class="purchasing-box">
+
+    <div class="purchasing-header">
+
+      <div class="purchasing-title">
+        4. Purchasing Power
+      </div>
+
+      <span class="optional-badge">
+        OPTIONAL
+      </span>
+
+    </div>
+
+
+    <div class="purchasing-desc">
+      See what your future accumulated savings might be worth in today's money.
+    </div>
+
+
+    <div class="purchasing-grid">
+
+      <div>
+
+        <label>
+          Inflation assumption
+        </label>
+
+        <select
+          id="sInflation"
+          onchange="calculateSavings()">
+
+          <option value=".02">
+            2.00%
+          </option>
+
+          <option value=".025">
+            2.50%
+          </option>
+
+          <option value=".03" selected>
+            3.00%
+          </option>
+
+          <option value=".035">
+            3.50%
+          </option>
+
+          <option value=".04">
+            4.00%
+          </option>
+
+        </select>
+
       </div>
 
     </div>
 
 
-    <div class="real-result">
+    <div class="purchasing-result">
 
-      <div class="real-label">
-        Value in today's purchasing power
+      <div class="purchase-row">
+
+        <span>
+          Accumulated savings
+        </span>
+
+        <span
+          class="purchase-value"
+          id="sPurchaseNominal">
+
+          RM0
+
+        </span>
+
       </div>
 
-      <div class="real-value"
-        id="sResultReal">
-        RM0
+
+      <div class="purchase-row">
+
+        <span>
+          Equivalent in today's money
+        </span>
+
+        <span
+          class="purchase-value real"
+          id="sResultReal">
+
+          RM0
+
+        </span>
+
       </div>
 
+    </div>
+
+
+    <div class="info-note">
+      Inflation does not reduce the savings account balance calculated above. It is used only to illustrate the purchasing power of that future amount.
     </div>
 
   </div>
@@ -1048,49 +1417,75 @@ input:focus,select:focus{
 
   <div class="actions">
 
-    <button class="btn"
+    <button
+      class="btn"
       onclick="toggleTimeline('sTimeline')">
+
       Changes over time ▾
+
     </button>
 
-    <button class="btn purple"
+
+    <button
+      class="btn purple"
       onclick="showMasterTimeline()">
+
       View Master Timeline
+
     </button>
 
-    <button class="btn primary"
+
+    <button
+      class="btn primary"
       onclick="transferSavingsToWealth()">
+
       Explore investing this amount →
+
     </button>
 
   </div>
 
 
-  <div id="sTimeline"
+  <div
+    id="sTimeline"
     class="timeline-panel hidden">
 
     <div class="timeline-head">
 
-      <strong>Savings timeline</strong>
+      <strong>
+        Savings timeline
+      </strong>
 
-      <button class="btn small"
+      <button
+        class="btn small"
         onclick="addDemoSavingsEvent()">
+
         + Add future change
+
       </button>
 
     </div>
 
-    <div class="timeline-list"
+
+    <div
+      class="timeline-list"
       id="sTimelineList">
 
       <div class="timeline-event">
-        <div class="event-year">START</div>
+
+        <div class="event-year">
+          START
+        </div>
+
         <div class="event-title">
           Savings plan begins
         </div>
-        <div class="event-detail"
+
+        <div
+          class="event-detail"
           id="sTimelineStart">
         </div>
+
       </div>
 
     </div>
@@ -1100,19 +1495,21 @@ input:focus,select:focus{
 </section>
 
 
-
 <!-- =====================================================
-     WEALTH MODULE
+     WEALTH
 ===================================================== -->
 
-<section class="section module-section hidden"
+<section
+  class="section module-section hidden"
   id="wealthModule">
 
   <div class="module-header">
 
     <div class="module-heading">
 
-      <div class="big-icon">📈</div>
+      <div class="big-icon">
+        📈
+      </div>
 
       <div>
 
@@ -1143,7 +1540,8 @@ input:focus,select:focus{
         Current / existing capital
       </div>
 
-      <input id="wExisting"
+      <input
+        id="wExisting"
         type="text"
         inputmode="decimal"
         value="500,000.00"
@@ -1153,7 +1551,9 @@ input:focus,select:focus{
     </div>
 
 
-    <div class="eq-symbol">+</div>
+    <div class="eq-symbol">
+      +
+    </div>
 
 
     <div class="source-card">
@@ -1162,7 +1562,8 @@ input:focus,select:focus{
         Additional capital now
       </div>
 
-      <input id="wAdditional"
+      <input
+        id="wAdditional"
         type="text"
         inputmode="decimal"
         value="0.00"
@@ -1172,7 +1573,9 @@ input:focus,select:focus{
     </div>
 
 
-    <div class="eq-symbol">=</div>
+    <div class="eq-symbol">
+      =
+    </div>
 
 
     <div class="source-card">
@@ -1181,9 +1584,12 @@ input:focus,select:focus{
         Starting investment capital
       </div>
 
-      <div class="source-value good"
+      <div
+        class="source-value good"
         id="wStartingTotal">
+
         RM500,000
+
       </div>
 
     </div>
@@ -1191,25 +1597,35 @@ input:focus,select:focus{
   </div>
 
 
-  <div class="form-grid"
+  <div
+    class="form-grid"
     style="margin-top:18px">
 
     <div>
-      <label>Regular new investment each month</label>
 
-      <input id="wMonthly"
+      <label>
+        Regular new investment each month
+      </label>
+
+      <input
+        id="wMonthly"
         type="text"
         inputmode="decimal"
         value="2,000.00"
         onfocus="moneyFocus(this)"
         onblur="moneyBlur(this);calculateWealth()">
+
     </div>
 
 
     <div>
-      <label>Invest for</label>
 
-      <select id="wYears"
+      <label>
+        Invest for
+      </label>
+
+      <select
+        id="wYears"
         onchange="calculateWealth()">
 
         <option value="5">5 years</option>
@@ -1222,13 +1638,18 @@ input:focus,select:focus{
         <option value="50">50 years</option>
 
       </select>
+
     </div>
 
 
     <div>
-      <label>Inflation assumption</label>
 
-      <select id="wInflation"
+      <label>
+        Inflation assumption
+      </label>
+
+      <select
+        id="wInflation"
         onchange="calculateWealth()">
 
         <option value=".02">2.00%</option>
@@ -1238,6 +1659,11 @@ input:focus,select:focus{
         <option value=".04">4.00%</option>
 
       </select>
+
+      <div class="helper">
+        Used to show ending wealth in today's purchasing power.
+      </div>
+
     </div>
 
   </div>
@@ -1256,22 +1682,29 @@ input:focus,select:focus{
 
     <div class="segmented">
 
-      <button id="wSingleBtn"
+      <button
+        id="wSingleBtn"
         class="segment"
         onclick="setWealthApproach('single')">
+
         Single investment
+
       </button>
 
-      <button id="wDiversifiedBtn"
+      <button
+        id="wDiversifiedBtn"
         class="segment active"
         onclick="setWealthApproach('diversified')">
+
         Diversified
+
       </button>
 
     </div>
 
 
-    <div id="wInvestmentArea"
+    <div
+      id="wInvestmentArea"
       style="margin-top:15px">
     </div>
 
@@ -1284,32 +1717,89 @@ input:focus,select:focus{
       What this wealth plan could produce
     </div>
 
+
     <div class="equation">
 
       <div class="eq-item">
-        <div class="eq-label">Starting capital</div>
-        <div class="eq-value" id="wResultStart">RM0</div>
+
+        <div class="eq-label">
+          Starting capital
+        </div>
+
+        <div
+          class="eq-value"
+          id="wResultStart">
+
+          RM0
+
+        </div>
+
       </div>
 
-      <div class="eq-symbol">+</div>
 
-      <div class="eq-item">
-        <div class="eq-label">New money invested</div>
-        <div class="eq-value" id="wResultContrib">RM0</div>
+      <div class="eq-symbol">
+        +
       </div>
 
-      <div class="eq-symbol">+</div>
 
       <div class="eq-item">
-        <div class="eq-label">Investment growth</div>
-        <div class="eq-value" id="wResultGrowth">RM0</div>
+
+        <div class="eq-label">
+          New money invested
+        </div>
+
+        <div
+          class="eq-value"
+          id="wResultContrib">
+
+          RM0
+
+        </div>
+
       </div>
 
-      <div class="eq-symbol">=</div>
+
+      <div class="eq-symbol">
+        +
+      </div>
+
 
       <div class="eq-item">
-        <div class="eq-label">Ending wealth</div>
-        <div class="eq-value good" id="wResultEnd">RM0</div>
+
+        <div class="eq-label">
+          Investment growth
+        </div>
+
+        <div
+          class="eq-value"
+          id="wResultGrowth">
+
+          RM0
+
+        </div>
+
+      </div>
+
+
+      <div class="eq-symbol">
+        =
+      </div>
+
+
+      <div class="eq-item">
+
+        <div class="eq-label">
+          Ending wealth
+        </div>
+
+        <div
+          class="eq-value good"
+          id="wResultEnd">
+
+          RM0
+
+        </div>
+
       </div>
 
     </div>
@@ -1321,9 +1811,12 @@ input:focus,select:focus{
         Ending wealth in today's purchasing power
       </div>
 
-      <div class="real-value"
+      <div
+        class="real-value"
         id="wResultReal">
+
         RM0
+
       </div>
 
     </div>
@@ -1333,39 +1826,58 @@ input:focus,select:focus{
 
   <div class="actions">
 
-    <button class="btn"
+    <button
+      class="btn"
       onclick="toggleTimeline('wTimeline')">
+
       Changes over time ▾
+
     </button>
 
-    <button class="btn purple"
+
+    <button
+      class="btn purple"
       onclick="showMasterTimeline()">
+
       View Master Timeline
+
     </button>
 
-    <button class="btn primary"
+
+    <button
+      class="btn primary"
       onclick="transferWealthToRetirement()">
+
       Explore retirement income →
+
     </button>
 
   </div>
 
 
-  <div id="wTimeline"
+  <div
+    id="wTimeline"
     class="timeline-panel hidden">
 
     <div class="timeline-head">
 
-      <strong>Wealth timeline</strong>
+      <strong>
+        Wealth timeline
+      </strong>
 
-      <button class="btn small"
+      <button
+        class="btn small"
         onclick="addDemoWealthEvent()">
+
         + Add capital event
+
       </button>
 
     </div>
 
-    <div class="timeline-list"
+
+    <div
+      class="timeline-list"
       id="wTimelineList">
 
       <div class="timeline-event">
@@ -1391,19 +1903,21 @@ input:focus,select:focus{
 </section>
 
 
-
 <!-- =====================================================
-     RETIREMENT MODULE
+     RETIREMENT
 ===================================================== -->
 
-<section class="section module-section hidden"
+<section
+  class="section module-section hidden"
   id="retirementModule">
 
   <div class="module-header">
 
     <div class="module-heading">
 
-      <div class="big-icon">🏖️</div>
+      <div class="big-icon">
+        🏖️
+      </div>
 
       <div>
 
@@ -1429,21 +1943,30 @@ input:focus,select:focus{
   <div class="form-grid">
 
     <div>
-      <label>Retirement / investment capital</label>
 
-      <input id="rCapital"
+      <label>
+        Retirement / investment capital
+      </label>
+
+      <input
+        id="rCapital"
         type="text"
         inputmode="decimal"
         value="1,000,000.00"
         onfocus="moneyFocus(this)"
         onblur="moneyBlur(this);updateRetirementPreview()">
+
     </div>
 
 
     <div>
-      <label>Retirement period</label>
 
-      <select id="rYears"
+      <label>
+        Retirement period
+      </label>
+
+      <select
+        id="rYears"
         onchange="updateRetirementPreview()">
 
         <option value="10">10 years</option>
@@ -1456,11 +1979,15 @@ input:focus,select:focus{
         <option value="50">50 years</option>
 
       </select>
+
     </div>
 
 
     <div>
-      <label>Inflation assumption</label>
+
+      <label>
+        Inflation assumption
+      </label>
 
       <select id="rInflation">
 
@@ -1471,18 +1998,24 @@ input:focus,select:focus{
         <option value=".04">4.00%</option>
 
       </select>
+
     </div>
 
 
     <div>
-      <label>Starting monthly retirement income</label>
 
-      <input id="rIncome"
+      <label>
+        Starting monthly retirement income
+      </label>
+
+      <input
+        id="rIncome"
         type="text"
         inputmode="decimal"
         value="3,000.00"
         onfocus="moneyFocus(this)"
         onblur="moneyBlur(this);updateRetirementPreview()">
+
     </div>
 
   </div>
@@ -1501,22 +2034,29 @@ input:focus,select:focus{
 
     <div class="segmented">
 
-      <button id="rSingleBtn"
+      <button
+        id="rSingleBtn"
         class="segment active"
         onclick="setRetirementApproach('single')">
+
         Single investment
+
       </button>
 
-      <button id="rDiversifiedBtn"
+      <button
+        id="rDiversifiedBtn"
         class="segment"
         onclick="setRetirementApproach('diversified')">
+
         Diversified
+
       </button>
 
     </div>
 
 
-    <div id="rInvestmentArea"
+    <div
+      id="rInvestmentArea"
       style="margin-top:15px">
     </div>
 
@@ -1529,6 +2069,7 @@ input:focus,select:focus{
       Retirement plan
     </div>
 
+
     <div class="plan-summary">
 
       <div class="plan-card">
@@ -1537,9 +2078,12 @@ input:focus,select:focus{
           Starting capital
         </div>
 
-        <div class="plan-value"
+        <div
+          class="plan-value"
           id="rPreviewCapital">
+
           RM1,000,000
+
         </div>
 
       </div>
@@ -1551,9 +2095,12 @@ input:focus,select:focus{
           Starting monthly income
         </div>
 
-        <div class="plan-value"
+        <div
+          class="plan-value"
           id="rPreviewIncome">
+
           RM3,000
+
         </div>
 
       </div>
@@ -1565,9 +2112,12 @@ input:focus,select:focus{
           Period being tested
         </div>
 
-        <div class="plan-value"
+        <div
+          class="plan-value"
           id="rPreviewYears">
+
           20 years
+
         </div>
 
       </div>
@@ -1575,11 +2125,11 @@ input:focus,select:focus{
     </div>
 
 
-    <div class="helper"
+    <div
+      class="helper"
       style="margin-top:15px">
 
-      The capital-preservation withdrawal solver will be connected
-      after the redesigned workflow is confirmed.
+      The capital-preservation withdrawal solver will be connected after the redesigned workflow is confirmed.
 
     </div>
 
@@ -1588,35 +2138,49 @@ input:focus,select:focus{
 
   <div class="actions">
 
-    <button class="btn"
+    <button
+      class="btn"
       onclick="toggleTimeline('rTimeline')">
+
       Changes over time ▾
+
     </button>
 
-    <button class="btn purple"
+
+    <button
+      class="btn purple"
       onclick="showMasterTimeline()">
+
       View Master Timeline
+
     </button>
 
   </div>
 
 
-  <div id="rTimeline"
+  <div
+    id="rTimeline"
     class="timeline-panel hidden">
 
     <div class="timeline-head">
 
-      <strong>Retirement timeline</strong>
+      <strong>
+        Retirement timeline
+      </strong>
 
-      <button class="btn small"
+      <button
+        class="btn small"
         onclick="addDemoRetirementEvent()">
+
         + Add future change
+
       </button>
 
     </div>
 
 
-    <div class="timeline-list"
+    <div
+      class="timeline-list"
       id="rTimelineList">
 
       <div class="timeline-event">
@@ -1629,7 +2193,8 @@ input:focus,select:focus{
           Retirement distributions begin
         </div>
 
-        <div class="event-detail"
+        <div
+          class="event-detail"
           id="rTimelineStart">
         </div>
 
@@ -1642,12 +2207,12 @@ input:focus,select:focus{
 </section>
 
 
-
 <!-- =====================================================
      COMPLETE PLAN
 ===================================================== -->
 
-<section class="section hidden"
+<section
+  class="section hidden"
   id="completePlan">
 
   <h2 class="section-title">
@@ -1667,9 +2232,12 @@ input:focus,select:focus{
         Savings projection
       </div>
 
-      <div class="plan-value"
+      <div
+        class="plan-value"
         id="planSavings">
+
         RM0
+
       </div>
 
     </div>
@@ -1681,9 +2249,12 @@ input:focus,select:focus{
         Wealth projection
       </div>
 
-      <div class="plan-value"
+      <div
+        class="plan-value"
         id="planWealth">
+
         RM0
+
       </div>
 
     </div>
@@ -1695,9 +2266,12 @@ input:focus,select:focus{
         Retirement capital entered
       </div>
 
-      <div class="plan-value"
+      <div
+        class="plan-value"
         id="planRetirement">
+
         RM0
+
       </div>
 
     </div>
@@ -1707,9 +2281,12 @@ input:focus,select:focus{
 
   <div class="actions">
 
-    <button class="btn purple"
+    <button
+      class="btn purple"
       onclick="showMasterTimeline()">
+
       View Master Timeline
+
     </button>
 
   </div>
@@ -1717,12 +2294,12 @@ input:focus,select:focus{
 </section>
 
 
-
 <!-- =====================================================
      MASTER TIMELINE
 ===================================================== -->
 
-<section class="section master-section hidden"
+<section
+  class="section master-section hidden"
   id="masterTimeline">
 
   <div class="module-header">
@@ -1734,16 +2311,18 @@ input:focus,select:focus{
       </h2>
 
       <div class="section-subtitle">
-        Direct visualization of financial activities and assumptions
-        against the same time base.
+        Direct visualization of financial activities and assumptions against the same time base.
       </div>
 
     </div>
 
 
-    <button class="btn small"
+    <button
+      class="btn small"
       onclick="hideMasterTimeline()">
+
       Close
+
     </button>
 
   </div>
@@ -1773,10 +2352,13 @@ input:focus,select:focus{
 
         <div class="track">
 
-          <div class="bar save"
+          <div
+            class="bar save"
             id="masterSavingsBar"
-            style="left:0;width:30%">
+            style="left:0;width:20%">
+
             Savings
+
           </div>
 
         </div>
@@ -1792,13 +2374,17 @@ input:focus,select:focus{
 
         <div class="track">
 
-          <div class="bar wealth"
+          <div
+            class="bar wealth"
             id="masterWealthBar"
             style="left:0;width:30%">
+
             Investment
+
           </div>
 
-          <div class="marker"
+          <div
+            class="marker"
             style="left:18%">
           </div>
 
@@ -1815,10 +2401,13 @@ input:focus,select:focus{
 
         <div class="track">
 
-          <div class="bar retire"
+          <div
+            class="bar retire"
             id="masterRetirementBar"
             style="left:0;width:40%">
+
             Retirement income
+
           </div>
 
         </div>
@@ -1834,9 +2423,12 @@ input:focus,select:focus{
 
         <div class="track">
 
-          <div class="bar inflation"
+          <div
+            class="bar inflation"
             style="left:0;width:100%">
-            Planning assumption
+
+            Purchasing-power assumption
+
           </div>
 
         </div>
@@ -1852,9 +2444,12 @@ input:focus,select:focus{
 
         <div class="track">
 
-          <div class="bar return"
+          <div
+            class="bar return"
             style="left:0;width:100%">
+
             Planning return assumptions
+
           </div>
 
         </div>
@@ -1866,12 +2461,11 @@ input:focus,select:focus{
   </div>
 
 
-  <div class="helper"
+  <div
+    class="helper"
     style="margin-top:13px">
 
-    This master timeline is currently a visualization layer.
-    Future changes to savings, capital, retirement income, inflation
-    and investment-return assumptions will appear here automatically.
+    The Master Timeline uses one common time base so savings, investment, retirement and future assumption changes can eventually be viewed together.
 
   </div>
 
@@ -1879,18 +2473,16 @@ input:focus,select:focus{
 
 
 <div class="disclaimer">
-  Educational planning simulator. Planning returns and inflation assumptions
-  are scenarios, not forecasts or guarantees.
+  Educational planning simulator. Planning returns and inflation assumptions are scenarios, not forecasts or guarantees.
 </div>
 
 </div>
-
 
 
 <script>
 
 /* =====================================================
-   DATA
+   INVESTMENT LIBRARY
 ===================================================== */
 
 var library = {
@@ -1957,7 +2549,7 @@ var latestWealthResult = null;
 
 
 /* =====================================================
-   BASIC HELPERS
+   HELPERS
 ===================================================== */
 
 function $(id){
@@ -2004,8 +2596,7 @@ function moneyFocus(input){
 
   var n = parseMoney(input.value);
 
-  input.value =
-    n.toFixed(2);
+  input.value = n.toFixed(2);
 
   setTimeout(function(){
     input.select();
@@ -2046,7 +2637,22 @@ function clampPercent(value){
 }
 
 
-function makeInvestment(type,capitalPct,newPct){
+function escapeHTML(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function makeInvestment(
+  type,
+  capitalPct,
+  newPct
+){
 
   customCounter++;
 
@@ -2067,23 +2673,44 @@ function makeInvestment(type,capitalPct,newPct){
 
     rate:ref.rate,
 
-    capitalPct:capitalPct || 0,
+    capitalPct:
+      capitalPct || 0,
 
-    newPct:newPct || 0
+    newPct:
+      newPct || 0
 
   };
-
 }
 
 
-function escapeHTML(text){
+/* =====================================================
+   TOP ALIGNMENT
+===================================================== */
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+function alignSectionToTop(id){
+
+  requestAnimationFrame(function(){
+
+    requestAnimationFrame(function(){
+
+      var target = $(id);
+
+      if(!target){
+        return;
+      }
+
+      var y =
+        target.getBoundingClientRect().top +
+        window.pageYOffset;
+
+      window.scrollTo({
+        top:y,
+        behavior:"smooth"
+      });
+
+    });
+
+  });
 
 }
 
@@ -2097,6 +2724,7 @@ function openModule(name){
   var modules =
     ["savings","wealth","retirement"];
 
+
   modules.forEach(function(module){
 
     $(module + "Module")
@@ -2106,12 +2734,14 @@ function openModule(name){
         module !== name
       );
 
+
     var card =
       module === "retirement"
       ? $("cardRetirement")
       : module === "wealth"
       ? $("cardWealth")
       : $("cardSavings");
+
 
     card.classList.toggle(
       "active",
@@ -2135,41 +2765,57 @@ function openModule(name){
     calculateSavings();
   }
 
+
   if(name === "wealth"){
     calculateWealth();
   }
 
+
   if(name === "retirement"){
     updateRetirementPreview();
   }
+
+
+  alignSectionToTop(
+    name + "Module"
+  );
 
 }
 
 
 function showCompletePlan(){
 
-  ["savingsModule",
-   "wealthModule",
-   "retirementModule"]
-   .forEach(function(id){
+  [
+    "savingsModule",
+    "wealthModule",
+    "retirementModule"
+  ]
+  .forEach(function(id){
 
-      $(id)
-        .classList
-        .add("hidden");
+    $(id)
+      .classList
+      .add("hidden");
 
-   });
+  });
 
 
-  ["cardSavings",
-   "cardWealth",
-   "cardRetirement"]
-   .forEach(function(id){
+  [
+    "cardSavings",
+    "cardWealth",
+    "cardRetirement"
+  ]
+  .forEach(function(id){
 
-      $(id)
-        .classList
-        .remove("active");
+    $(id)
+      .classList
+      .remove("active");
 
-   });
+  });
+
+
+  $("masterTimeline")
+    .classList
+    .add("hidden");
 
 
   $("completePlan")
@@ -2179,10 +2825,10 @@ function showCompletePlan(){
 
   updateCompletePlan();
 
-  $("completePlan")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+
+  alignSectionToTop(
+    "completePlan"
+  );
 
 }
 
@@ -2191,15 +2837,20 @@ function showCompletePlan(){
    INVESTMENT RENDERER
 ===================================================== */
 
-function investmentSelect(inv,module){
+function investmentSelect(
+  inv,
+  module
+){
 
   var types = [
+
     ["deposit","Bank Deposit"],
     ["epf","EPF"],
     ["mgs","MGS / GII"],
     ["qqq","QQQ ETF"],
     ["cibr","CIBR ETF"],
     ["custom","Custom Investment"]
+
   ];
 
 
@@ -2230,7 +2881,40 @@ function investmentSelect(inv,module){
 
 
   return html + "</select>";
+}
 
+
+function customNameHTML(
+  inv,
+  module
+){
+
+  if(inv.type !== "custom"){
+    return "";
+  }
+
+
+  return (
+
+    '<div class="custom-name">' +
+
+      '<label>Custom investment name</label>' +
+
+      '<input type="text"' +
+
+      ' value="' +
+      escapeHTML(inv.name) +
+      '"' +
+
+      ' onchange="changeCustomName(\'' +
+      module +
+      '\',\'' +
+      inv.id +
+      '\',this.value)">' +
+
+    '</div>'
+
+  );
 }
 
 
@@ -2241,8 +2925,10 @@ function renderInvestmentArea(
 ){
 
   var area =
-    $(module.charAt(0) +
-      "InvestmentArea");
+    $(
+      module.charAt(0) +
+      "InvestmentArea"
+    );
 
 
   if(approach === "single"){
@@ -2262,17 +2948,28 @@ function renderInvestmentArea(
         '<div class="investment-grid">' +
 
           '<div>' +
+
             '<label>Investment</label>' +
-            investmentSelect(inv,module) +
+
+            investmentSelect(
+              inv,
+              module
+            ) +
+
           '</div>' +
 
+
           '<div>' +
+
             '<label>Expected annual return used</label>' +
 
-            '<input type="text" inputmode="decimal"' +
+            '<input type="text"' +
+            ' inputmode="decimal"' +
+
             ' value="' +
             (inv.rate * 100).toFixed(2) +
             '"' +
+
             ' onchange="changeRate(\'' +
             module +
             '\',\'' +
@@ -2285,7 +2982,10 @@ function renderInvestmentArea(
 
         '</div>' +
 
-        customNameHTML(inv,module) +
+        customNameHTML(
+          inv,
+          module
+        ) +
 
       '</div>';
 
@@ -2297,110 +2997,141 @@ function renderInvestmentArea(
     '<div class="investment-list">';
 
 
-  investments.forEach(function(inv,index){
+  investments.forEach(
+    function(inv,index){
 
-    html +=
+      html +=
 
-      '<div class="investment">' +
+        '<div class="investment">' +
 
-        '<div class="investment-head">' +
+          '<div class="investment-head">' +
 
-          '<div class="investment-name">' +
-            "Investment " +
-            (index + 1) +
-          '</div>' +
+            '<div class="investment-name">' +
 
-          (
-            investments.length > 1
+              "Investment " +
+              (index + 1) +
 
-            ?
+            '</div>' +
 
-            '<button class="btn small danger"' +
-            ' onclick="removeInvestment(\'' +
-            module +
-            '\',\'' +
-            inv.id +
-            '\')">' +
-            "Remove" +
-            "</button>"
+            (
+              investments.length > 1
 
-            :
+              ?
 
-            ""
-          ) +
+              '<button class="btn small danger"' +
 
-        '</div>' +
+              ' onclick="removeInvestment(\'' +
+              module +
+              '\',\'' +
+              inv.id +
+              '\')">' +
 
+              "Remove" +
 
-        '<div class="investment-grid four">' +
+              "</button>"
 
-          '<div>' +
-            '<label>Investment</label>' +
-            investmentSelect(inv,module) +
-          '</div>' +
+              :
 
-          '<div>' +
-            '<label>Current money %</label>' +
-
-            '<input type="text" inputmode="decimal"' +
-            ' value="' +
-            inv.capitalPct.toFixed(2) +
-            '"' +
-            ' onchange="changeAllocation(\'' +
-            module +
-            '\',\'' +
-            inv.id +
-            '\',\'capital\',this.value)">' +
+              ""
+            ) +
 
           '</div>' +
 
-          (
-            module === "retirement"
 
-            ?
-
-            ""
-
-            :
+          '<div class="investment-grid four">' +
 
             '<div>' +
-              '<label>New money %</label>' +
 
-              '<input type="text" inputmode="decimal"' +
+              '<label>Investment</label>' +
+
+              investmentSelect(
+                inv,
+                module
+              ) +
+
+            '</div>' +
+
+
+            '<div>' +
+
+              '<label>Current money %</label>' +
+
+              '<input type="text"' +
+              ' inputmode="decimal"' +
+
               ' value="' +
-              inv.newPct.toFixed(2) +
+              inv.capitalPct.toFixed(2) +
               '"' +
+
               ' onchange="changeAllocation(\'' +
               module +
               '\',\'' +
               inv.id +
-              '\',\'new\',this.value)">' +
+              '\',\'capital\',this.value)">' +
 
-            '</div>'
-          ) +
+            '</div>' +
 
-          '<div>' +
-            '<label>Expected return %</label>' +
 
-            '<input type="text" inputmode="decimal"' +
-            ' value="' +
-            (inv.rate * 100).toFixed(2) +
-            '"' +
-            ' onchange="changeRate(\'' +
-            module +
-            '\',\'' +
-            inv.id +
-            '\',this.value)">' +
+            (
+              module === "retirement"
+
+              ?
+
+              ""
+
+              :
+
+              '<div>' +
+
+                '<label>New money %</label>' +
+
+                '<input type="text"' +
+                ' inputmode="decimal"' +
+
+                ' value="' +
+                inv.newPct.toFixed(2) +
+                '"' +
+
+                ' onchange="changeAllocation(\'' +
+                module +
+                '\',\'' +
+                inv.id +
+                '\',\'new\',this.value)">' +
+
+              '</div>'
+            ) +
+
+
+            '<div>' +
+
+              '<label>Expected return %</label>' +
+
+              '<input type="text"' +
+              ' inputmode="decimal"' +
+
+              ' value="' +
+              (inv.rate * 100).toFixed(2) +
+              '"' +
+
+              ' onchange="changeRate(\'' +
+              module +
+              '\',\'' +
+              inv.id +
+              '\',this.value)">' +
+
+            '</div>' +
 
           '</div>' +
 
-        '</div>' +
+          customNameHTML(
+            inv,
+            module
+          ) +
 
-        customNameHTML(inv,module) +
+        '</div>';
 
-      '</div>';
-
-  });
+    }
+  );
 
 
   html +=
@@ -2410,18 +3141,23 @@ function renderInvestmentArea(
     '<div class="actions">' +
 
       '<button class="btn small"' +
+
       ' onclick="addInvestment(\'' +
       module +
       '\')">' +
+
       "+ Add Investment" +
+
       "</button>" +
 
     '</div>' +
 
     '<div class="allocation-status"' +
+
     ' id="' +
     module.charAt(0) +
     'AllocationStatus">' +
+
     "</div>";
 
 
@@ -2429,43 +3165,15 @@ function renderInvestmentArea(
     html;
 
 
-  updateAllocationStatus(module);
-
-}
-
-
-function customNameHTML(inv,module){
-
-  if(inv.type !== "custom"){
-    return "";
-  }
-
-
-  return (
-
-    '<div class="custom-name">' +
-
-      '<label>Custom investment name</label>' +
-
-      '<input type="text"' +
-      ' value="' +
-      escapeHTML(inv.name) +
-      '"' +
-      ' onchange="changeCustomName(\'' +
-      module +
-      '\',\'' +
-      inv.id +
-      '\',this.value)">' +
-
-    '</div>'
-
+  updateAllocationStatus(
+    module
   );
 
 }
 
 
 /* =====================================================
-   INVESTMENT STATE HELPERS
+   INVESTMENT STATE
 ===================================================== */
 
 function moduleInvestments(module){
@@ -2520,20 +3228,33 @@ function rerenderModule(module){
 }
 
 
-function findInvestment(module,id){
+function findInvestment(
+  module,
+  id
+){
 
   return moduleInvestments(module)
     .find(function(inv){
+
       return inv.id === id;
+
     });
 
 }
 
 
-function changeInvestmentType(module,id,type){
+function changeInvestmentType(
+  module,
+  id,
+  type
+){
 
   var inv =
-    findInvestment(module,id);
+    findInvestment(
+      module,
+      id
+    );
+
 
   if(!inv){
     return;
@@ -2544,8 +3265,13 @@ function changeInvestmentType(module,id,type){
     library[type];
 
 
-  inv.type = type;
-  inv.rate = ref.rate;
+  inv.type =
+    type;
+
+
+  inv.rate =
+    ref.rate;
+
 
   inv.name =
     type === "custom"
@@ -2553,15 +3279,25 @@ function changeInvestmentType(module,id,type){
     : ref.name;
 
 
-  rerenderModule(module);
+  rerenderModule(
+    module
+  );
 
 }
 
 
-function changeRate(module,id,value){
+function changeRate(
+  module,
+  id,
+  value
+){
 
   var inv =
-    findInvestment(module,id);
+    findInvestment(
+      module,
+      id
+    );
+
 
   if(!inv){
     return;
@@ -2581,20 +3317,35 @@ function changeRate(module,id,value){
 
 
   inv.rate =
-    Math.max(-20,
-      Math.min(30,rate)
+    Math.max(
+      -20,
+      Math.min(
+        30,
+        rate
+      )
     ) / 100;
 
 
-  rerenderModule(module);
+  rerenderModule(
+    module
+  );
 
 }
 
 
-function changeAllocation(module,id,type,value){
+function changeAllocation(
+  module,
+  id,
+  type,
+  value
+){
 
   var inv =
-    findInvestment(module,id);
+    findInvestment(
+      module,
+      id
+    );
+
 
   if(!inv){
     return;
@@ -2602,20 +3353,27 @@ function changeAllocation(module,id,type,value){
 
 
   if(type === "capital"){
+
     inv.capitalPct =
       clampPercent(value);
+
   }else{
+
     inv.newPct =
       clampPercent(value);
+
   }
 
 
-  updateAllocationStatus(module);
+  updateAllocationStatus(
+    module
+  );
 
 
   if(module === "savings"){
     calculateSavings();
   }
+
 
   if(module === "wealth"){
     calculateWealth();
@@ -2624,15 +3382,25 @@ function changeAllocation(module,id,type,value){
 }
 
 
-function changeCustomName(module,id,value){
+function changeCustomName(
+  module,
+  id,
+  value
+){
 
   var inv =
-    findInvestment(module,id);
+    findInvestment(
+      module,
+      id
+    );
+
 
   if(inv){
+
     inv.name =
       value.trim() ||
       "Custom Investment";
+
   }
 
 }
@@ -2650,12 +3418,17 @@ function addInvestment(module){
     );
 
 
-  rerenderModule(module);
+  rerenderModule(
+    module
+  );
 
 }
 
 
-function removeInvestment(module,id){
+function removeInvestment(
+  module,
+  id
+){
 
   var list =
     moduleInvestments(module);
@@ -2667,36 +3440,46 @@ function removeInvestment(module,id){
 
 
   var filtered =
-    list.filter(function(inv){
-      return inv.id !== id;
-    });
+    list.filter(
+      function(inv){
+
+        return inv.id !== id;
+
+      }
+    );
 
 
   if(module === "savings"){
     savingsInvestments = filtered;
   }
 
+
   if(module === "wealth"){
     wealthInvestments = filtered;
   }
+
 
   if(module === "retirement"){
     retirementInvestments = filtered;
   }
 
 
-  rerenderModule(module);
+  rerenderModule(
+    module
+  );
 
 }
 
 
 /* =====================================================
-   APPROACH
+   APPROACH SELECTION
 ===================================================== */
 
 function setSavingsApproach(value){
 
-  savingsApproach = value;
+  savingsApproach =
+    value;
+
 
   $("sSingleBtn")
     .classList
@@ -2704,6 +3487,7 @@ function setSavingsApproach(value){
       "active",
       value === "single"
     );
+
 
   $("sDiversifiedBtn")
     .classList
@@ -2719,21 +3503,36 @@ function setSavingsApproach(value){
   ){
 
     savingsInvestments = [
-      makeInvestment("deposit",50,50),
-      makeInvestment("mgs",50,50)
+
+      makeInvestment(
+        "deposit",
+        50,
+        50
+      ),
+
+      makeInvestment(
+        "mgs",
+        50,
+        50
+      )
+
     ];
 
   }
 
 
-  rerenderModule("savings");
+  rerenderModule(
+    "savings"
+  );
 
 }
 
 
 function setWealthApproach(value){
 
-  wealthApproach = value;
+  wealthApproach =
+    value;
+
 
   $("wSingleBtn")
     .classList
@@ -2741,6 +3540,7 @@ function setWealthApproach(value){
       "active",
       value === "single"
     );
+
 
   $("wDiversifiedBtn")
     .classList
@@ -2756,22 +3556,42 @@ function setWealthApproach(value){
   ){
 
     wealthInvestments = [
-      makeInvestment("deposit",30,20),
-      makeInvestment("mgs",30,30),
-      makeInvestment("qqq",40,50)
+
+      makeInvestment(
+        "deposit",
+        30,
+        20
+      ),
+
+      makeInvestment(
+        "mgs",
+        30,
+        30
+      ),
+
+      makeInvestment(
+        "qqq",
+        40,
+        50
+      )
+
     ];
 
   }
 
 
-  rerenderModule("wealth");
+  rerenderModule(
+    "wealth"
+  );
 
 }
 
 
 function setRetirementApproach(value){
 
-  retirementApproach = value;
+  retirementApproach =
+    value;
+
 
   $("rSingleBtn")
     .classList
@@ -2779,6 +3599,7 @@ function setRetirementApproach(value){
       "active",
       value === "single"
     );
+
 
   $("rDiversifiedBtn")
     .classList
@@ -2794,20 +3615,33 @@ function setRetirementApproach(value){
   ){
 
     retirementInvestments = [
-      makeInvestment("deposit",40,40),
-      makeInvestment("mgs",60,60)
+
+      makeInvestment(
+        "deposit",
+        40,
+        40
+      ),
+
+      makeInvestment(
+        "mgs",
+        60,
+        60
+      )
+
     ];
 
   }
 
 
-  rerenderModule("retirement");
+  rerenderModule(
+    "retirement"
+  );
 
 }
 
 
 /* =====================================================
-   ALLOCATION STATUS
+   ALLOCATION
 ===================================================== */
 
 function allocationTotals(module){
@@ -2819,15 +3653,20 @@ function allocationTotals(module){
   moduleInvestments(module)
     .forEach(function(inv){
 
-      capital += inv.capitalPct;
-      newMoney += inv.newPct;
+      capital +=
+        inv.capitalPct;
+
+      newMoney +=
+        inv.newPct;
 
     });
 
 
   return {
+
     capital:capital,
     newMoney:newMoney
+
   };
 
 }
@@ -2835,7 +3674,10 @@ function allocationTotals(module){
 
 function allocationValid(module){
 
-  if(moduleApproach(module) === "single"){
+  if(
+    moduleApproach(module) ===
+    "single"
+  ){
     return true;
   }
 
@@ -2854,13 +3696,17 @@ function allocationValid(module){
 
 
   return (
+
     Math.abs(
       totals.capital - 100
     ) < .01
+
     &&
+
     Math.abs(
       totals.newMoney - 100
     ) < .01
+
   );
 
 }
@@ -2868,14 +3714,19 @@ function allocationValid(module){
 
 function updateAllocationStatus(module){
 
-  if(moduleApproach(module) === "single"){
+  if(
+    moduleApproach(module) ===
+    "single"
+  ){
     return;
   }
 
 
   var status =
-    $(module.charAt(0) +
-      "AllocationStatus");
+    $(
+      module.charAt(0) +
+      "AllocationStatus"
+    );
 
 
   if(!status){
@@ -2903,10 +3754,13 @@ function updateAllocationStatus(module){
   }
 
 
-  if(allocationValid(module)){
+  if(
+    allocationValid(module)
+  ){
 
     status.className =
       "allocation-status good";
+
 
     status.textContent =
       text + " ✓";
@@ -2915,6 +3769,7 @@ function updateAllocationStatus(module){
 
     status.className =
       "allocation-status warn";
+
 
     status.textContent =
       text +
@@ -2927,10 +3782,6 @@ function updateAllocationStatus(module){
 
 /* =====================================================
    ACCUMULATION ENGINE
-
-   Each holding compounds independently.
-   Existing balance earns return first,
-   then monthly contribution is added.
 ===================================================== */
 
 function simulateAccumulation(options){
@@ -2940,13 +3791,17 @@ function simulateAccumulation(options){
 
 
   var balances =
-    investments.map(function(inv){
+    investments.map(
+      function(inv){
 
-      return options.startCapital *
-        inv.capitalPct /
-        100;
+        return (
+          options.startCapital *
+          inv.capitalPct /
+          100
+        );
 
-    });
+      }
+    );
 
 
   var startCapital =
@@ -2957,7 +3812,8 @@ function simulateAccumulation(options){
     options.monthlyContribution;
 
 
-  var totalContributions = 0;
+  var totalContributions =
+    0;
 
 
   for(
@@ -2971,7 +3827,9 @@ function simulateAccumulation(options){
 
         balances[index] *=
           1 +
-          monthlyRate(inv.rate);
+          monthlyRate(
+            inv.rate
+          );
 
 
         balances[index] +=
@@ -2989,7 +3847,8 @@ function simulateAccumulation(options){
 
     if(
       month % 12 === 0 &&
-      month < options.years * 12
+      month <
+      options.years * 12
     ){
 
       monthlyContribution *=
@@ -3004,7 +3863,9 @@ function simulateAccumulation(options){
   var ending =
     balances.reduce(
       function(a,b){
+
         return a + b;
+
       },
       0
     );
@@ -3026,16 +3887,20 @@ function simulateAccumulation(options){
 
   return {
 
-    starting:startCapital,
+    starting:
+      startCapital,
 
     contributions:
       totalContributions,
 
-    growth:growth,
+    growth:
+      growth,
 
-    ending:ending,
+    ending:
+      ending,
 
-    real:real,
+    real:
+      real,
 
     finalMonthlyContribution:
       monthlyContribution
@@ -3046,12 +3911,16 @@ function simulateAccumulation(options){
 
 
 /* =====================================================
-   SAVINGS CALCULATION
+   SAVINGS
 ===================================================== */
 
 function calculateSavings(){
 
-  if(!allocationValid("savings")){
+  if(
+    !allocationValid(
+      "savings"
+    )
+  ){
     return;
   }
 
@@ -3089,13 +3958,17 @@ function calculateSavings(){
   latestSavingsResult =
     simulateAccumulation({
 
-      startCapital:starting,
+      startCapital:
+        starting,
 
-      monthlyContribution:monthly,
+      monthlyContribution:
+        monthly,
 
-      years:years,
+      years:
+        years,
 
-      inflation:inflation,
+      inflation:
+        inflation,
 
       contributionIncrease:
         increase,
@@ -3106,37 +3979,50 @@ function calculateSavings(){
     });
 
 
-  $("sResultStart").textContent =
+  $("sResultStart")
+    .textContent =
     formatRM(
       latestSavingsResult.starting
     );
 
 
-  $("sResultContrib").textContent =
+  $("sResultContrib")
+    .textContent =
     formatRM(
       latestSavingsResult.contributions
     );
 
 
-  $("sResultGrowth").textContent =
+  $("sResultGrowth")
+    .textContent =
     formatRM(
       latestSavingsResult.growth
     );
 
 
-  $("sResultEnd").textContent =
+  $("sResultEnd")
+    .textContent =
     formatRM(
       latestSavingsResult.ending
     );
 
 
-  $("sResultReal").textContent =
+  $("sPurchaseNominal")
+    .textContent =
+    formatRM(
+      latestSavingsResult.ending
+    );
+
+
+  $("sResultReal")
+    .textContent =
     formatRM(
       latestSavingsResult.real
     );
 
 
-  $("sTimelineStart").textContent =
+  $("sTimelineStart")
+    .textContent =
     formatRM(monthly) +
     " per month for " +
     years +
@@ -3149,12 +4035,16 @@ function calculateSavings(){
 
 
 /* =====================================================
-   WEALTH CALCULATION
+   WEALTH
 ===================================================== */
 
 function calculateWealth(){
 
-  if(!allocationValid("wealth")){
+  if(
+    !allocationValid(
+      "wealth"
+    )
+  ){
     return;
   }
 
@@ -3194,22 +4084,30 @@ function calculateWealth(){
     );
 
 
-  $("wStartingTotal").textContent =
-    formatRM(starting);
+  $("wStartingTotal")
+    .textContent =
+    formatRM(
+      starting
+    );
 
 
   latestWealthResult =
     simulateAccumulation({
 
-      startCapital:starting,
+      startCapital:
+        starting,
 
-      monthlyContribution:monthly,
+      monthlyContribution:
+        monthly,
 
-      years:years,
+      years:
+        years,
 
-      inflation:inflation,
+      inflation:
+        inflation,
 
-      contributionIncrease:0,
+      contributionIncrease:
+        0,
 
       investments:
         wealthInvestments
@@ -3217,31 +4115,36 @@ function calculateWealth(){
     });
 
 
-  $("wResultStart").textContent =
+  $("wResultStart")
+    .textContent =
     formatRM(
       latestWealthResult.starting
     );
 
 
-  $("wResultContrib").textContent =
+  $("wResultContrib")
+    .textContent =
     formatRM(
       latestWealthResult.contributions
     );
 
 
-  $("wResultGrowth").textContent =
+  $("wResultGrowth")
+    .textContent =
     formatRM(
       latestWealthResult.growth
     );
 
 
-  $("wResultEnd").textContent =
+  $("wResultEnd")
+    .textContent =
     formatRM(
       latestWealthResult.ending
     );
 
 
-  $("wResultReal").textContent =
+  $("wResultReal")
+    .textContent =
     formatRM(
       latestWealthResult.real
     );
@@ -3276,19 +4179,28 @@ function updateRetirementPreview(){
     );
 
 
-  $("rPreviewCapital").textContent =
-    formatRM(capital);
+  $("rPreviewCapital")
+    .textContent =
+    formatRM(
+      capital
+    );
 
 
-  $("rPreviewIncome").textContent =
-    formatRM(income);
+  $("rPreviewIncome")
+    .textContent =
+    formatRM(
+      income
+    );
 
 
-  $("rPreviewYears").textContent =
-    years + " years";
+  $("rPreviewYears")
+    .textContent =
+    years +
+    " years";
 
 
-  $("rTimelineStart").textContent =
+  $("rTimelineStart")
+    .textContent =
     formatRM(income) +
     " per month from " +
     formatRM(capital) +
@@ -3301,9 +4213,7 @@ function updateRetirementPreview(){
 
 
 /* =====================================================
-   TRANSFERS BETWEEN MODULES
-
-   These are optional conveniences, not dependencies.
+   OPTIONAL MODULE TRANSFERS
 ===================================================== */
 
 function transferSavingsToWealth(){
@@ -3325,13 +4235,10 @@ function transferSavingsToWealth(){
 
   calculateWealth();
 
-  openModule("wealth");
 
-
-  $("wealthModule")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  openModule(
+    "wealth"
+  );
 
 }
 
@@ -3351,13 +4258,10 @@ function transferWealthToRetirement(){
 
   updateRetirementPreview();
 
-  openModule("retirement");
 
-
-  $("retirementModule")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  openModule(
+    "retirement"
+  );
 
 }
 
@@ -3370,7 +4274,8 @@ function updateCompletePlan(){
 
   if(latestSavingsResult){
 
-    $("planSavings").textContent =
+    $("planSavings")
+      .textContent =
       formatRM(
         latestSavingsResult.ending
       );
@@ -3380,7 +4285,8 @@ function updateCompletePlan(){
 
   if(latestWealthResult){
 
-    $("planWealth").textContent =
+    $("planWealth")
+      .textContent =
       formatRM(
         latestWealthResult.ending
       );
@@ -3388,7 +4294,8 @@ function updateCompletePlan(){
   }
 
 
-  $("planRetirement").textContent =
+  $("planRetirement")
+    .textContent =
     formatRM(
       parseMoney(
         $("rCapital").value
@@ -3399,14 +4306,16 @@ function updateCompletePlan(){
 
 
 /* =====================================================
-   TIMELINE
+   MODULE TIMELINES
 ===================================================== */
 
 function toggleTimeline(id){
 
   $(id)
     .classList
-    .toggle("hidden");
+    .toggle(
+      "hidden"
+    );
 
 }
 
@@ -3419,7 +4328,9 @@ function addTimelineEvent(
 ){
 
   var event =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   event.className =
@@ -3442,7 +4353,9 @@ function addTimelineEvent(
 
 
   $(listId)
-    .appendChild(event);
+    .appendChild(
+      event
+    );
 
 }
 
@@ -3450,10 +4363,15 @@ function addTimelineEvent(
 function addDemoSavingsEvent(){
 
   addTimelineEvent(
+
     "sTimelineList",
+
     "FUTURE CHANGE",
+
     "Change monthly savings",
+
     "Future builds will allow the year and new savings amount to be entered here."
+
   );
 
 }
@@ -3462,10 +4380,15 @@ function addDemoSavingsEvent(){
 function addDemoWealthEvent(){
 
   addTimelineEvent(
+
     "wTimelineList",
+
     "CAPITAL EVENT",
+
     "Additional capital",
+
     "Future builds will allow a lump-sum amount and timing to be entered here."
+
   );
 
 }
@@ -3474,10 +4397,15 @@ function addDemoWealthEvent(){
 function addDemoRetirementEvent(){
 
   addTimelineEvent(
+
     "rTimelineList",
+
     "FUTURE CHANGE",
+
     "Change retirement income",
+
     "Future builds will allow the year and new distribution amount to be entered here."
+
   );
 
 }
@@ -3507,36 +4435,52 @@ function showMasterTimeline(){
     );
 
 
-  $("masterSavingsBar").style.width =
+  $("masterSavingsBar")
+    .style
+    .width =
     Math.min(
       100,
-      savingsYears / 50 * 100
-    ) + "%";
+      savingsYears /
+      50 *
+      100
+    ) +
+    "%";
 
 
-  $("masterWealthBar").style.width =
+  $("masterWealthBar")
+    .style
+    .width =
     Math.min(
       100,
-      wealthYears / 50 * 100
-    ) + "%";
+      wealthYears /
+      50 *
+      100
+    ) +
+    "%";
 
 
-  $("masterRetirementBar").style.width =
+  $("masterRetirementBar")
+    .style
+    .width =
     Math.min(
       100,
-      retirementYears / 50 * 100
-    ) + "%";
+      retirementYears /
+      50 *
+      100
+    ) +
+    "%";
 
 
   $("masterTimeline")
     .classList
-    .remove("hidden");
+    .remove(
+      "hidden"
+    );
 
 
-  $("masterTimeline")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  alignSectionToTop(
+    "masterTimeline"
+  );
 
 }
 
@@ -3545,7 +4489,9 @@ function hideMasterTimeline(){
 
   $("masterTimeline")
     .classList
-    .add("hidden");
+    .add(
+      "hidden"
+    );
 
 }
 
@@ -3557,28 +4503,42 @@ function hideMasterTimeline(){
 function initialize(){
 
   renderInvestmentArea(
+
     "savings",
+
     savingsInvestments,
+
     savingsApproach
+
   );
 
 
   renderInvestmentArea(
+
     "wealth",
+
     wealthInvestments,
+
     wealthApproach
+
   );
 
 
   renderInvestmentArea(
+
     "retirement",
+
     retirementInvestments,
+
     retirementApproach
+
   );
 
 
   calculateSavings();
+
   calculateWealth();
+
   updateRetirementPreview();
 
 }

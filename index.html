@@ -57,6 +57,9 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 #referenceRatesPanel{margin-top:14px;padding:16px;background:#0e1721}.reference-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.reference-card{padding:11px;background:#101923}.reference-value{font-size:18px}.reference-link{font-size:12px}.reference-meta{min-height:34px}
 @media(max-width:980px){.reference-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:620px){.reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+
+/* Reference Centre - neutral, table-led and mobile safe */
+.reference-sticky{position:sticky;top:0;z-index:35;margin:-16px -16px 15px;padding:9px 14px;background:rgba(8,16,25,.97);border-bottom:1px solid #314055;backdrop-filter:blur(10px);display:flex;align-items:center;gap:9px;flex-wrap:wrap}.reference-sticky strong{font-size:12px;letter-spacing:.08em;color:var(--gold)}.reference-sticky span{font-size:13px;font-weight:800}.reference-sticky small{width:100%;color:var(--muted);font-size:11px}.reference-section{margin-top:10px;border:1px solid var(--border);border-radius:14px;background:#0b141d;overflow:hidden}.reference-section>summary{cursor:pointer;list-style:none;padding:14px 15px;font-weight:800}.reference-section>summary::-webkit-details-marker{display:none}.reference-section>summary:after{content:" +";float:right;color:var(--muted)}.reference-section[open]>summary:after{content:" -"}.reference-body{padding:0 14px 14px}.reference-date{font-size:12px;color:var(--muted);margin:0 0 10px}.reference-body h4{margin:13px 0 7px;font-size:14px}.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #263648;border-radius:11px}.ref-table{width:100%;border-collapse:collapse;min-width:520px;font-size:13px}.ref-table th,.ref-table td{padding:10px 11px;text-align:left;border-bottom:1px solid #223140;vertical-align:top}.ref-table th{background:#101d29;color:#c8d8e9;font-size:12px;white-space:nowrap}.ref-table tr:last-child td{border-bottom:0}.ref-table td:not(:first-child){font-variant-numeric:tabular-nums}.reference-body .note{margin-top:10px}.reference-body .reference-link{margin-top:11px}@media(max-width:620px){#referenceRatesPanel{padding:14px}.reference-sticky{margin:-14px -14px 13px;padding:8px 11px}.reference-sticky small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ref-table{min-width:500px}}
 </style>
 </head>
 <body>
@@ -77,47 +80,54 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 <div class="home-block ledger-home"><strong>Master Ledger</strong><div class="sub">See what is included, where your money sits, and the assumptions currently in force.</div><div class="actions"><button class="button primary-ledger" onclick="openScreen('ledger')">View Master Ledger</button><button class="button" onclick="openScreen('timeline')">Master Timeline</button></div></div>
 <div class="home-block complete-home"><strong>Complete Financial Plan</strong><div class="sub">See Savings, Wealth and Retirement together without counting the same money twice.</div><div class="actions"><button class="button" onclick="openScreen('complete')">View Complete Plan</button></div>
 <section class="panel" id="referenceRatesPanel">
-  <div class="section-title">Reference Rates &amp; Sources <span class="reference-meta" style="float:right">Last updated: 19 Sep 2026</span> <button class="info-btn" onclick="openInfo('referenceRates')" aria-label="About reference rates">i</button></div>
-  <div class="sub">Current observed rates can help you choose assumptions. They do not automatically change your planning returns.</div>
-  <div class="reference-grid">
-    <div class="reference-card">
-      <div class="reference-label">Malaysia Inflation</div>
-      <div class="reference-value">1.9% YoY</div>
-      <div class="reference-meta">DOSM CPI - Aug 2026</div>
-      <a class="reference-link" href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-aug2026" target="_blank" rel="noopener noreferrer">Open DOSM CPI ></a>
-    </div>
-    <div class="reference-card">
-      <div class="reference-label">10Y MGS Yield</div>
-      <div class="reference-value">3.92%</div>
-      <div class="reference-meta">BNM close - 18 Sep 2026</div>
-      <a class="reference-link" href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3" target="_blank" rel="noopener noreferrer">Open BNM Yields ></a>
-    </div>
-    <div class="reference-card">
-      <div class="reference-label">10Y MGII Yield</div>
-      <div class="reference-value">3.95%</div>
-      <div class="reference-meta">BNM close - 18 Sep 2026</div>
-      <a class="reference-link" href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3" target="_blank" rel="noopener noreferrer">Open BNM Yields ></a>
-    </div>
-    <div class="reference-card">
-      <div class="reference-label">BNM OPR</div>
-      <div class="reference-value">2.75%</div>
-      <div class="reference-meta">BNM - 3 Sep 2026</div>
-      <a class="reference-link" href="https://www.bnm.gov.my/monetary-stability/opr-decisions/-/tag/opr-2026" target="_blank" rel="noopener noreferrer">Open OPR Decisions ></a>
-    </div>
-    <div class="reference-card">
-      <div class="reference-label">EPF Dividend</div>
-      <div class="reference-value">6.15%</div>
-      <div class="reference-meta">2025 - Conventional &amp; Shariah</div>
-      <a class="reference-link" href="https://www.kwsp.gov.my/en/others/resource-centre/dividend" target="_blank" rel="noopener noreferrer">Open EPF Dividend ></a>
-    </div>
-    <div class="reference-card">
-      <div class="reference-label">QQQ</div>
-      <div class="reference-value">Historical Performance</div>
-      <div class="reference-meta">Official fund information</div>
-      <a class="reference-link" href="https://www.invesco.com/qqq-etf/en/performance.html" target="_blank" rel="noopener noreferrer">Open Invesco QQQ ></a>
-    </div>
-  </div>
-  <div class="audit"><strong>Reference Rate != Planning Return.</strong> Current yields, current inflation and historical investment returns are useful reference points, not forecasts. Keep long-term assumptions appropriate to your own scenario.</div>
+  <div class="reference-sticky"><strong>REFERENCE DATA</strong><span>Last refreshed: 19 Sep 2026</span><small>Sources: DOSM Â· BNM Â· EPF Â· published Malaysian bank comparisons</small></div>
+  <div class="section-title">Reference Centre <button class="info-btn" onclick="openInfo('referenceRates')" aria-label="About reference data">i</button></div>
+  <div class="sub">Neutral reference data to help you form your own assumptions. No market security, ETF, REIT or investment product is promoted here.</div>
+  <div class="audit"><strong>Reference data != recommended investment != planning return.</strong> Reference observations are not forecasts and do not automatically change any simulator assumption.</div>
+
+  <details class="reference-section" open><summary>Inflation &amp; CPI</summary><div class="reference-body">
+    <div class="reference-date">Latest reference: Aug 2026 Â· Source: Department of Statistics Malaysia (DOSM)</div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Period</th><th>YoY inflation</th><th>Use in simulator</th></tr></thead><tbody><tr><td>Aug 2026</td><td><strong>1.9%</strong></td><td>Current reference only; choose your own long-term inflation assumption.</td></tr></tbody></table></div>
+    <a class="reference-link" href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-aug2026" target="_blank" rel="noopener noreferrer">Open DOSM CPI source &gt;</a>
+  </div></details>
+
+  <details class="reference-section"><summary>Malaysian Government Securities</summary><div class="reference-body">
+    <div class="reference-date">Market data: 18 Sep 2026 Â· Source: Bank Negara Malaysia FMIP</div>
+    <h4>Short-term government bills</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Instrument</th><th>Up to 3M</th><th>&gt;3-6M</th><th>&gt;6-12M</th></tr></thead><tbody><tr><td>MTB</td><td>2.97%</td><td>3.02%</td><td>3.05%</td></tr><tr><td>MITB</td><td>2.95%</td><td>3.01%</td><td>3.05%</td></tr></tbody></table></div>
+    <h4>Benchmark trading yields</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenor</th><th>MGS</th><th>MGII</th></tr></thead><tbody><tr><td>3Y</td><td>3.43%</td><td>3.52%</td></tr><tr><td>5Y</td><td>3.77%</td><td>3.73%</td></tr><tr><td>7Y</td><td>3.91%</td><td>3.83%</td></tr><tr><td>10Y</td><td>3.92%</td><td>3.95%</td></tr></tbody></table></div>
+    <div class="note">These are market reference yields, not guaranteed future reinvestment returns. Treasury Bills are part of Malaysian government securities, not a separate asset class.</div>
+    <a class="reference-link" href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3" target="_blank" rel="noopener noreferrer">Open BNM benchmark yields &gt;</a>
+  </div></details>
+
+  <details class="reference-section"><summary>EPF Historical Dividend Rates</summary><div class="reference-body">
+    <div class="reference-date">Latest published: FY2025 Â· Source: Employees Provident Fund (EPF)</div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Year</th><th>Conventional</th><th>Shariah</th></tr></thead><tbody><tr><td>2025</td><td>6.15%</td><td>6.15%</td></tr><tr><td>2024</td><td>6.30%</td><td>6.30%</td></tr><tr><td>2023</td><td>5.50%</td><td>5.40%</td></tr><tr><td>2022</td><td>5.35%</td><td>4.75%</td></tr><tr><td>2021</td><td>6.10%</td><td>5.65%</td></tr><tr><td>2020</td><td>5.20%</td><td>4.90%</td></tr><tr><td>2019</td><td>5.45%</td><td>5.00%</td></tr><tr><td>2018</td><td>6.15%</td><td>5.90%</td></tr><tr><td>2017</td><td>6.90%</td><td>6.40%</td></tr></tbody></table></div>
+    <a class="reference-link" href="https://www.kwsp.gov.my/en/others/resource-centre/dividend" target="_blank" rel="noopener noreferrer">Open full EPF dividend history &gt;</a>
+  </div></details>
+
+  <details class="reference-section"><summary>MYR Fixed Deposits</summary><div class="reference-body">
+    <div class="reference-date">Comparison checked: 7 Sep 2026 Â· Source: published Malaysian FD comparison</div>
+    <h4>Standard / board-rate reference</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenure</th><th>Highest published board rate in comparison</th><th>Typical minimum among leading entries</th></tr></thead><tbody><tr><td>1 month</td><td>2.65%</td><td>RM1,000-RM5,000</td></tr><tr><td>3 months</td><td>2.75%</td><td>RM500-RM1,000</td></tr><tr><td>6 months</td><td>2.85%</td><td>RM500-RM1,000</td></tr><tr><td>9 months</td><td>2.90%</td><td>RM500-RM1,000</td></tr></tbody></table></div>
+    <h4>Promotional-rate reference</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenure observed</th><th>Observed promo range</th><th>Common conditions</th></tr></thead><tbody><tr><td>3-6 months</td><td>3.40%-3.85%</td><td>Often fresh funds, online placement or customer-tier conditions</td></tr><tr><td>7-9 months</td><td>3.50%-3.82%</td><td>Campaign period and minimum placement commonly apply</td></tr><tr><td>10-12 months</td><td>3.60%-3.80%</td><td>Campaign terms vary by provider</td></tr></tbody></table></div>
+    <div class="note"><strong>Why no bank ranking?</strong> The Reference Centre deliberately avoids promoting individual banks. Promotional rates change frequently and may have conditions. Verify the provider's official terms before placement. Bundled investment/insurance promotions are excluded from these reference ranges.</div>
+    <a class="reference-link" href="https://ringgitplus.com/en/blog/fixed-deposits/best-fixed-deposit-promotions-and-board-rates-in-malaysia.html" target="_blank" rel="noopener noreferrer">Open current FD comparison &gt;</a>
+  </div></details>
+
+  <details class="reference-section"><summary>Bank Savings / Deposit Rates</summary><div class="reference-body">
+    <div class="reference-date">Reference method: compare published base rates separately from conditional / bonus rates</div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Rate type</th><th>What it means</th><th>What to check</th></tr></thead><tbody><tr><td>Base savings rate</td><td>Rate available without special activity requirements</td><td>Balance tiers and effective rate</td></tr><tr><td>Conditional / bonus rate</td><td>Extra interest for meeting specified conditions</td><td>Salary credit, card spend, bill payment, investment or balance requirements</td></tr><tr><td>Promotional deposit rate</td><td>Temporary campaign rate</td><td>Campaign end date, fresh-funds rules and minimum placement</td></tr></tbody></table></div>
+    <div class="note">A headline savings rate can be misleading if it applies only to part of the balance or requires several conditions. Use the effective rate applicable to your expected balance and behaviour as the planning reference.</div>
+  </div></details>
+
+  <details class="reference-section"><summary>BNM Policy Rate</summary><div class="reference-body">
+    <div class="reference-date">Latest decision: 3 Sep 2026 Â· Source: Bank Negara Malaysia</div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Date</th><th>OPR change</th><th>OPR level</th></tr></thead><tbody><tr><td>3 Sep 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>9 Jul 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>7 May 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>5 Mar 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>22 Jan 2026</td><td>0.00%</td><td>2.75%</td></tr></tbody></table></div>
+    <a class="reference-link" href="https://www.bnm.gov.my/monetary-stability/opr-decisions/-/tag/opr-2026" target="_blank" rel="noopener noreferrer">Open BNM OPR decisions &gt;</a>
+  </div></details>
 </section>
 </div>
 </section>
@@ -132,7 +142,7 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 
 <div class="step"><div class="step-title">2. How do you plan to allocate the savings fund?</div><div class="sub">Select an investment or add your own. Enter how much of the monthly savings commitment goes to each investment. The allocation percentage is calculated automatically.</div>
 <div class="segmented"><button id="sSingle" class="segment active" onclick="setApproach('savings','single')">Single investment</button><button id="sDiversified" class="segment" onclick="setApproach('savings','diversified')">Diversified</button></div><div id="sPortfolio"></div>
-<details class="guide"><summary>Guide: allocation and planning return</summary><div class="guide-body"><strong>Cash in Hand:</strong> choose this when part of your saved money is intentionally left unallocated. It remains part of Savings and uses a 0% planning return until you move it elsewhere.<br><br>Enter the RM amount of your monthly savings commitment going to each investment. The simulator calculates the percentage automatically. Planning return is the annual return assumption for that investment, and each holding compounds separately.<div class="example">RM1,000/month with 50% in Bank Deposit and 50% in MGS/GII means RM500/month goes to each. Each portion then compounds using its own planning return.</div></div></details></div>
+<details class="guide"><summary>Guide: savings destinations and planning return</summary><div class="guide-body"><strong>Savings vs Wealth:</strong> Savings is contribution-led: it tracks where new money you save each month is directed. Wealth & Investment is capital-led: it tracks investment capital you already have and its portfolio holdings. The same money should never be entered in both modules.<br><br><strong>Cash in Hand:</strong> choose this when part of your saved money is intentionally left unallocated. It remains part of Savings and uses a 0% planning return until you move it elsewhere.<br><br>Enter the RM amount of your monthly savings commitment going to each savings destination. The simulator calculates the percentage automatically. Savings destinations may be cash, deposits, EPF, MGS/GII, a general ETF/investment bucket, or a custom destination. Planning return is the annual return assumption for that destination, and each balance compounds separately.<div class="example">RM1,000/month with RM400 to Bank Deposit and RM600 to MGS/GII means 40% and 60% of monthly savings go to those destinations. Each portion then compounds using its own planning return.</div></div></details></div>
 
 <details class="optional"><summary>3. Withdrawals - optional</summary><div class="optional-body"><div class="muted">A withdrawal is taken at its actual point in time and reduces the capital available for future compounding.</div><button class="button" onclick="addWithdrawal('savings')">Add withdrawal</button><div id="sEvents"></div></div></details>
 
@@ -227,7 +237,8 @@ If retirement income escalation is enabled, the monthly distribution increases o
 
 <script>
 const $=id=>document.getElementById(id);
-const products={cash:{name:"Cash in Hand",rate:0},deposit:{name:"Bank Deposit",rate:.02},epf:{name:"EPF",rate:.05},mgs:{name:"MGS/GII",rate:.0417},qqq:{name:"QQQ ETF",rate:.08},cibr:{name:"CIBR ETF",rate:.08},custom:{name:"Custom Investment",rate:.04}};
+const products={cash:{name:"Cash in Hand",rate:0},deposit:{name:"Bank Deposit",rate:.02},epf:{name:"EPF",rate:.05},mgs:{name:"MGS/GII",rate:.0417},investment:{name:"ETF / Investment",rate:.08},qqq:{name:"QQQ ETF",rate:.08},cibr:{name:"CIBR ETF",rate:.08},custom:{name:"Custom Investment",rate:.04}};
+const productCatalogs={savings:["cash","deposit","epf","mgs","investment","custom"],wealth:["deposit","epf","mgs","qqq","cibr","custom"]};
 let uid=20,retirementProfile="balanced";
 const state={
  savings:{approach:"single",portfolio:[{id:"s1",type:"deposit",name:"Bank Deposit",rate:.02,pct:100,amount:0}]},
@@ -264,7 +275,7 @@ function updateBranchBar(name){let bar=$("branchBar"),pill=$("branchPill");if(!b
 function openScreen(name){let target=$(name+"Screen");if(!target)return;["home","savings","wealth","retirement","ledger","timeline","complete"].forEach(x=>{let el=$(x+"Screen");if(el)el.classList.add("hidden")});target.classList.remove("hidden");let header=$("appHeader");if(header)header.classList.toggle("hidden",name!=="home");updateBranchBar(name);window.scrollTo(0,0);try{recalcAll(false)}catch(err){console.error("Recalculation error",err)};if(name==="ledger")try{renderLedger()}catch(err){console.error("Ledger error",err)};if(name==="timeline")try{renderTimeline()}catch(err){console.error("Timeline error",err)};if(name==="complete")try{renderComplete()}catch(err){console.error("Complete Plan error",err)}}
 function showHome(){openScreen("home")}
 function newInv(kind,pct=0){return{id:kind[0]+(++uid),type:"custom",name:"Custom Investment",rate:.04,pct,newPct:pct,amount:0}}
-function productOptions(type){return Object.entries(products).map(([k,p])=>`<option value="${k}" ${k===type?"selected":""}>${esc(p.name)}</option>`).join("")}
+function productOptions(kind,type){let keys=productCatalogs[kind]||Object.keys(products);if(type&&!keys.includes(type)&&products[type])keys=[type,...keys];return keys.map(k=>{let p=products[k];return `<option value="${k}" ${k===type?"selected":""}>${esc(p.name)}</option>`}).join("")}
 function findInv(kind,id){return state[kind].portfolio.find(x=>x.id===id)}
 function setApproach(kind,mode){state[kind].approach=mode;if(!state[kind].portfolio.length)state[kind].portfolio=[newInv(kind,100)];if(mode==="single"){state[kind].portfolio=[state[kind].portfolio[0]];state[kind].portfolio[0].pct=100;state[kind].portfolio[0].newPct=100;if(kind==="savings")state[kind].portfolio[0].amount=num($("sMonthly").value)}renderPortfolio(kind);renderEvents(kind);recalcAll(false)}
 function addInv(kind){if(state[kind].portfolio.length>=LIMITS.maxHoldings){showGlobalSafety(`A maximum of ${LIMITS.maxHoldings} investments is allowed in one planner to protect mobile performance.`);return}state[kind].portfolio.push(newInv(kind,0));renderPortfolio(kind);recalcAll(false)}
@@ -282,10 +293,10 @@ function renderPortfolio(kind){
  $(kind==="savings"?"sSingle":"wSingle").classList.toggle("active",single);$(kind==="savings"?"sDiversified":"wDiversified").classList.toggle("active",!single);
  let base=kind==="savings"?num($("sMonthly").value):num($("wExisting").value)+num($("wAdditional").value),html="";if(kind==="savings"&&!single)st.portfolio.forEach(x=>x.pct=base>0?(x.amount||0)/base*100:0);
  st.portfolio.forEach(x=>{html+=`<div class="investment-card"><div class="inv-head"><strong>${esc(x.name)}</strong>${!single?`<button class="button small danger" onclick="removeInv('${kind}','${x.id}')">Remove</button>`:""}</div><div class="inv-grid ${kind==="wealth"?"wealth":""}">
- <div><label>Investment</label><select onchange="changeProduct('${kind}','${x.id}',this.value)">${productOptions(x.type)}</select>${x.type==="custom"?`<input class="inline-custom" value="${esc(x.name)}" placeholder="Custom investment name" oninput="changeName('${kind}','${x.id}',this.value)">`:""}</div>
+ <div><label>${kind==="savings"?"Savings destination":"Investment"}</label><select onchange="changeProduct('${kind}','${x.id}',this.value)">${productOptions(kind,x.type)}</select>${x.type==="custom"?`<input class="inline-custom" value="${esc(x.name)}" placeholder="Custom investment name" oninput="changeName('${kind}','${x.id}',this.value)">`:""}</div>
  ${!single?`<div><label>${kind==="savings"?"Monthly allocation (RM)":"Current capital allocation (%)"}</label>${kind==="savings"?`<input type="number" inputmode="decimal" min="0" step=".01" value="${(x.amount||0).toFixed(2)}" oninput="changeSavingsAmount('${x.id}',this.value)"><div class="amount-hint">${base>0?(x.pct).toFixed(2):"0.00"}% of monthly savings</div>`:`<input type="number" inputmode="decimal" min="0" max="100" step=".01" value="${x.pct.toFixed(2)}" oninput="changePct('${kind}','${x.id}',this.value)"><div class="amount-hint">${rm(base*x.pct/100)}</div>`}</div>`:""}
  <div><label>Planning return % p.a.</label><input type="number" inputmode="decimal" min="-100" max="500" step=".01" value="${Number.isFinite(x.rate)?(x.rate*100).toFixed(2):""}" ${x.type==="cash"?"disabled":""} oninput="changeRate('${kind}','${x.id}',this.value)">${x.type==="cash"?`<div class="amount-hint">Unallocated savings; planning return is 0% until moved to another asset.</div>`:""}</div></div></div>`});
- if(!single){let t=st.portfolio.reduce((a,x)=>a+x.pct,0);if(kind==="savings"){let allocated=base*t/100,remaining=base-allocated;html+=`<div class="status ${Math.abs(t-100)<.01?"good":"warn"}">Allocated: ${rm(allocated)} / ${rm(base)} (${t.toFixed(2)}%) | ${remaining>=-0.01?"Remaining: "+rm(Math.max(0,remaining)):"Over-allocated by: "+rm(Math.abs(remaining))}</div><div class="actions"><button class="button small" onclick="addInv('${kind}')">Add Investment</button><button class="button small" onclick="equalize('${kind}')">Distribute Equally</button></div>`}else{html+=`<div class="status ${Math.abs(t-100)<.01?"good":"warn"}">Allocated: ${t.toFixed(2)}% | ${t<=100?"Remaining: "+(100-t).toFixed(2)+"%":"Reduce allocation by: "+(t-100).toFixed(2)+"%"}</div><div class="actions"><button class="button small" onclick="addInv('${kind}')">Add Investment</button><button class="button small" onclick="equalize('${kind}')">Rebalance Equally</button></div>`}}
+ if(!single){let t=st.portfolio.reduce((a,x)=>a+x.pct,0);if(kind==="savings"){let allocated=base*t/100,remaining=base-allocated;html+=`<div class="status ${Math.abs(t-100)<.01?"good":"warn"}">Allocated: ${rm(allocated)} / ${rm(base)} (${t.toFixed(2)}%) | ${remaining>=-0.01?"Remaining: "+rm(Math.max(0,remaining)):"Over-allocated by: "+rm(Math.abs(remaining))}</div><div class="actions"><button class="button small" onclick="addInv('${kind}')">${kind==="savings"?"Add Savings Destination":"Add Investment"}</button><button class="button small" onclick="equalize('${kind}')">Distribute Equally</button></div>`}else{html+=`<div class="status ${Math.abs(t-100)<.01?"good":"warn"}">Allocated: ${t.toFixed(2)}% | ${t<=100?"Remaining: "+(100-t).toFixed(2)+"%":"Reduce allocation by: "+(t-100).toFixed(2)+"%"}</div><div class="actions"><button class="button small" onclick="addInv('${kind}')">${kind==="savings"?"Add Savings Destination":"Add Investment"}</button><button class="button small" onclick="equalize('${kind}')">Rebalance Equally</button></div>`}}
  target.innerHTML=html;if(kind==="wealth")renderNewAllocation()
 }
 function renderNewAllocation(){
@@ -492,9 +503,9 @@ function recalcAll(scroll=false){
 window.addEventListener("scroll",()=>{let up=$("scrollTop");if(up)up.classList.toggle("show",window.scrollY>500);let bar=$("branchBar");if(bar&&bar.dataset.screen)bar.classList.toggle("show",window.scrollY>150)});
 renderPortfolio("savings");renderPortfolio("wealth");renderEvents("savings");renderEvents("wealth");recalcAll(false);
 
-const INFO={referenceRates:{title:"Reference Rates & Sources",meaning:"A set of current or recently declared market and economic reference points from primary or official sources.",use:"The simulator shows these references to help you choose your own assumptions. It does not automatically overwrite inflation or investment-return assumptions.",example:"A 10-year MGS yield of 3.92% is a current market yield reference. You may still choose a different long-term MGS planning return if your scenario requires it.",watch:"Current CPI is not a 20- or 30-year inflation forecast. A current bond yield is not guaranteed for future reinvestment. EPF dividends and QQQ historical returns can change.",limits:"Reference figures become stale. Always open the linked source for the latest observation before making an important decision."},
+const INFO={referenceRates:{title:"Reference Rates & Sources",meaning:"A set of current or recently declared market and economic reference points from primary or official sources.",use:"The simulator shows these references to help you choose your own assumptions. It does not automatically overwrite inflation or investment-return assumptions.",example:"A 10-year MGS yield of 3.92% is a current market yield reference. You may still choose a different long-term MGS planning return if your scenario requires it.",watch:"Current CPI is not a 20- or 30-year inflation forecast. A current bond yield is not guaranteed for future reinvestment. EPF dividends and bank deposit rates can change.",limits:"Reference figures become stale. Each table shows its own data date. Open the linked source for the latest observation before making an important decision."},
 about:{title:"How this simulator works",meaning:"This is a scenario-planning tool. Savings and Wealth contain the actual financial assets. Retirement is a downstream strategy that uses those assets; it is not another account.",use:"Start with Savings for regular future saving, Wealth & Investment for capital you already own, or both. A planner is included only after you enter actual money. Retirement then reads the projected assets automatically.",example:"If you save RM2,000 per month and already have RM500,000 invested, both pools grow separately. At retirement the simulator combines their projected balances without duplicating them.",watch:"Contributions add new money. Transfers or reallocations move existing money. Withdrawals remove money. One real asset should be entered only once.",limitations:"Planning returns and inflation are assumptions, not forecasts. Returns are modelled smoothly, so sequence-of-returns risk is simplified. Taxes, fees, transaction costs and FX movements may not be fully modelled. Actual outcomes can differ materially."},
-savings:{title:"Savings",meaning:"Savings models money you commit to put aside regularly.",use:"Enter the monthly commitment and allocate that RM amount among Cash in Hand, deposits, bonds, ETFs or other investments.",example:"RM500/month can be RM100 Cash in Hand, RM100 Bank Deposit and RM300 QQQ. The app calculates 20%, 20% and 60%.",watch:"Monthly RM allocations must add up to the monthly savings commitment."},
+savings:{title:"Savings",meaning:"Savings models money you commit to put aside regularly.",use:"Enter the monthly commitment and direct that RM amount among savings destinations such as Cash in Hand, Bank Deposit, EPF, MGS/GII, a general ETF / Investment bucket, or a Custom destination. Specific portfolio holdings belong primarily in Wealth & Investment.",example:"RM500/month can be RM100 Cash in Hand, RM100 Bank Deposit and RM300 ETF / Investment. The app calculates 20%, 20% and 60%.",watch:"Monthly RM allocations must add up to the monthly savings commitment."},
 cash:{title:"Cash in Hand",meaning:"Saved money that is intentionally unallocated or still looking for a purpose or place to invest.",use:"It remains inside Savings and is included in financial capital and Retirement. The current model assigns it a 0% planning return.",example:"RM100 of a RM500 monthly commitment left as Cash in Hand means 20% stays liquid and unallocated.",watch:"Cash provides liquidity, but at 0% it contributes no investment growth and may lose purchasing power to inflation."},
 wealth:{title:"Wealth & Investment",meaning:"Wealth models investment capital you already own and capital you may add later.",use:"Record current capital and holdings, then optionally add future investment contributions and withdrawals.",example:"RM500,000 might be allocated 40% QQQ, 30% MGS/GII and 30% Custom Investment.",watch:"Moving money between holdings is reallocation, not new wealth."},
 retirement:{title:"Retirement & Capital Preservation",meaning:"Retirement tests how capital accumulated in Savings and/or Wealth may support income and what happens to remaining capital.",use:"At the selected retirement date, it automatically reads the Master Ledger assets. You do not enter the same capital again.",example:"Savings RM400,000 plus Wealth RM1.6 million gives RM2 million capital at retirement.",watch:"Retirement cannot function as a standalone capital source. Create Savings, Wealth, or both first."},

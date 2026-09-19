@@ -19,10 +19,10 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 .note{margin-top:13px;padding:11px 12px;border-left:3px solid var(--gold);border-radius:7px;background:#0f171f;color:#b0bdca;font-size:13px}.investment-card,.event-card,.summary-card{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:15px;margin-top:11px}.inv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px}.inv-grid{display:grid;grid-template-columns:1.35fr .8fr .8fr;gap:10px}.inv-grid.wealth{grid-template-columns:1.25fr .7fr .7fr .75fr}.inv-grid label{font-size:12px}.amount-hint{font-size:12px;color:#9fb3c9;margin-top:5px}.status{margin-top:10px;background:#101b27;border-radius:11px;padding:10px 12px;color:var(--muted);font-size:13px}.good{color:var(--green)}.warn{color:var(--orange)}.bad{color:var(--red)}.gold{color:var(--gold)}
 .optional{margin-top:20px;border:1px solid #314055;border-radius:17px;background:#0b141e;overflow:hidden}.optional>summary{cursor:pointer;list-style:none;padding:15px 17px;font-size:17px;font-weight:800}.optional>summary::-webkit-details-marker{display:none}.optional-body{padding:0 16px 16px}.event-grid{display:grid;grid-template-columns:.8fr .8fr 1fr 1.2fr;gap:10px}
 .result{margin-top:22px;background:#0a151f;border:1px solid #304961;border-radius:18px;padding:18px}.result-title{font-size:19px;font-weight:800;margin-bottom:13px}.summary-value{font-size:22px;font-weight:800;margin-top:4px}.summary-label{color:var(--muted);font-size:12px}.invalid{border:1px solid #76562e;background:#1c160e;border-radius:14px;padding:16px;color:#eab774}.purchasing{margin-top:19px;border:1px solid #66562d;background:#17140d;border-radius:18px;padding:17px}.purchase-row{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}.purchase-row:last-child{border:0}.purchase-row span:first-child{color:var(--muted)}.real{color:var(--gold);font-weight:800}
-.profile-card.active{border-color:#6e9de0;background:#172a41}.profile-name{font-weight:800;font-size:17px}.profile-desc{color:var(--muted);font-size:13px;margin-top:5px}.profile-value{font-size:23px;font-weight:850;margin-top:10px}.ledger-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:13px;margin-top:8px}.ledger-name{font-weight:800}.ledger-meta{color:var(--muted);font-size:13px;margin-top:3px}.badge{flex:0 0 auto;border:1px solid #42634f;background:#102219;color:#8de0ae;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:800}.ledger-section{margin-top:18px}.ledger-section-title{font-size:17px;font-weight:800}.audit{border:1px solid #375a48;background:#0e1d17;border-radius:15px;padding:14px;margin-top:14px}.audit strong{color:#8de0ae}
+.profile-card.active{border-color:#6e9de0;background:#172a41}.profile-name{font-weight:800;font-size:17px}.profile-desc{color:var(--muted);font-size:13px;margin-top:5px}.profile-value{font-size:23px;font-weight:850;margin-top:10px}.profile-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.profile-metrics>div{background:#0d1620;border:1px solid var(--border);border-radius:10px;padding:9px;text-align:left}.profile-metrics span{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.profile-metrics strong{display:block;font-size:12px;line-height:1.35}.profile-card.active .profile-metrics>div{background:#102238}.ledger-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:13px;margin-top:8px}.ledger-name{font-weight:800}.ledger-meta{color:var(--muted);font-size:13px;margin-top:3px}.badge{flex:0 0 auto;border:1px solid #42634f;background:#102219;color:#8de0ae;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:800}.ledger-section{margin-top:18px}.ledger-section-title{font-size:17px;font-weight:800}.audit{border:1px solid #375a48;background:#0e1d17;border-radius:15px;padding:14px;margin-top:14px}.audit strong{color:#8de0ae}
 .timeline{margin-top:16px;background:#09121a;border:1px solid var(--border);border-radius:16px;padding:14px}.timeline-item{padding:10px 0;border-bottom:1px solid #1e2a37}.timeline-item:last-child{border:0}.time{font-size:12px;color:#91baff;font-weight:800}.scroll-top{position:fixed;right:max(13px,env(safe-area-inset-right));bottom:calc(17px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:50%;border:1px solid #42566f;background:rgba(19,29,42,.95);color:#fff;font-size:15px;font-weight:800;opacity:0;visibility:hidden;transition:.2s;z-index:50}.scroll-top.show{opacity:1;visibility:visible}.footer{color:#718094;font-size:12px;text-align:center;margin-top:25px}
 @media(max-width:800px){.home-grid,.summary-grid,.profile-grid,.form-grid{grid-template-columns:1fr}.inv-grid,.inv-grid.wealth,.event-grid{grid-template-columns:1fr 1fr}.inv-grid>div:first-child{grid-column:1/-1}}
-@media(max-width:480px){.wrap{padding-left:11px;padding-right:11px}.panel{padding:17px 13px}.title{font-size:26px}.inv-grid,.inv-grid.wealth,.event-grid{grid-template-columns:1fr}.inv-grid>div:first-child{grid-column:auto}.purchase-row{flex-direction:column;gap:2px}}
+@media(max-width:480px){.profile-metrics{grid-template-columns:1fr}.wrap{padding-left:11px;padding-right:11px}.panel{padding:17px 13px}.title{font-size:26px}.inv-grid,.inv-grid.wealth,.event-grid{grid-template-columns:1fr}.inv-grid>div:first-child{grid-column:auto}.purchase-row{flex-direction:column;gap:2px}}
 </style>
 </head>
 <body>
@@ -114,7 +114,20 @@ This is a planning and scenario tool, not a prediction. <strong>Savings</strong>
 <div><label>Inflation assumption</label><select id="rInflation" onchange="toggleCustom('rInflation','rInflationCustom');calculateRetirement()"><option value=".02">2.00%</option><option value=".025">2.50%</option><option value=".03" selected>3.00%</option><option value=".035">3.50%</option><option value=".04">4.00%</option><option value="custom">Custom</option></select><input id="rInflationCustom" class="hidden inline-custom" type="number" inputmode="decimal" min="0" step=".1" placeholder="Custom inflation % p.a." oninput="calculateRetirement()"></div>
 <div><label>Increase retirement income each year?</label><select id="rIncrease" onchange="toggleCustom('rIncrease','rIncreaseCustom');calculateRetirement()"><option value="0" selected>No increase</option><option value="inflation">Match inflation</option><option value=".02">2.00%</option><option value=".03">3.00%</option><option value=".04">4.00%</option><option value="custom">Custom</option></select><input id="rIncreaseCustom" class="hidden inline-custom" type="number" inputmode="decimal" min="0" step=".1" placeholder="Custom % p.a." oninput="calculateRetirement()"></div></div></div>
 
-<div class="step"><div class="step-title">5. Choose your retirement objective</div><div id="rProfiles" class="profile-grid"></div></div>
+<div class="step"><div class="step-title">5. Choose your retirement objective</div>
+<div class="note">Compare both the income and the consequence. A higher monthly distribution is not automatically better: it may leave less protection against inflation or lower-than-planned returns.</div>
+<div id="rProfiles" class="profile-grid"></div>
+<details class="guide" open><summary>Compare the three retirement strategies</summary><div class="guide-body">
+<strong>Maximum Distribution</strong> prioritises the highest starting income while targeting preservation of the original nominal RM capital.<br><br>
+<strong>Preserve Real Capital</strong> targets a higher future nominal balance so that the ending capital retains approximately the purchasing power of the starting capital after inflation.<br><br>
+<strong>Balanced</strong> deliberately starts at 2.4% of retirement capital per year. It is not the mathematical midpoint between the other two strategies; it is a conservative withdrawal rule intended to leave a larger capital buffer invested.<br><br>
+<div class="example"><strong>How to compare:</strong> look at Starting income, Total retirement income, Projected ending capital, Ending capital in today's RM, Nominal Capital status and Real Capital status together.</div>
+</div></details>
+<details class="guide"><summary>How are these amounts calculated?</summary><div class="guide-body">
+Each underlying Savings and Wealth asset keeps its own planning return. The simulator converts each annual return to an effective monthly rate, applies that return to the opening monthly balance, and then deducts the retirement distribution proportionally across the underlying assets.<br><br>
+If retirement income escalation is enabled, the monthly distribution increases once each year by the selected escalation rate. Inflation is used separately to measure purchasing power and, for Preserve Real Capital, to calculate the nominal ending-capital target required to preserve starting purchasing power.<br><br>
+<strong>Planning returns are assumptions, not guarantees.</strong> Actual investment returns, inflation and sequence of returns can differ materially from the projection.
+</div></details></div>
 <div class="result"><div class="result-title">6. Retirement projection</div><div id="rMessage"></div><div id="rResults" class="summary-grid">
 <div class="summary-card"><div class="summary-label">Selected profile</div><div id="rProfileName" class="summary-value">-</div></div>
 <div class="summary-card"><div class="summary-label">Starting monthly income</div><div id="rStartIncome" class="summary-value">-</div></div>
@@ -216,7 +229,48 @@ function sourceAtRetirement(){let y=yrs("rStartYears","rStartYearsCustom"),s=sav
 function retirementAssets(src){let s=savingsAt(src.start),w=wealthAt(src.start),a=[];if(s.valid&&s.holdings)s.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Savings - "+x.name,balance:x.balance,rate:x.rate})});if(w.valid&&w.holdings)w.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Wealth - "+x.name,balance:x.balance,rate:x.rate})});return a}
 function runRetirement(startMonthly,src){let a=retirementAssets(src).map(x=>({...x})),months=yrs("rYears","rYearsCustom")*12,inc=annualIncrease(),requested=0,actual=0,depleted=0;for(let m=1;m<=months;m++){a.forEach(x=>x.balance*=1+mrate(x.rate));let req=startMonthly*Math.pow(1+inc,Math.floor((m-1)/12));requested+=req;let total=a.reduce((z,x)=>z+x.balance,0),take=Math.min(req,total);actual+=take;if(total>0&&take>0)a.forEach(x=>x.balance-=take*(x.balance/total));if(take+.01<req&&!depleted)depleted=m}return{end:a.reduce((z,x)=>z+x.balance,0),requested,actual,depleted}}
 function solveIncome(target,src){let lo=0,hi=Math.max(1000,src.total/30);for(let k=0;k<90;k++){let mid=(lo+hi)/2,r=runRetirement(mid,src);if(r.end>=target&&!r.depleted)lo=mid;else hi=mid}return lo}
-function profiles(src){let y=yrs("rYears","rYearsCustom"),i=infl("rInflation","rInflationCustom");return[{id:"max",name:"Maximum Distribution",desc:"Highest starting income targeting preservation of original nominal capital.",income:solveIncome(src.total,src)},{id:"real",name:"Preserve Real Capital",desc:"Highest starting income targeting preservation of starting purchasing power.",income:solveIncome(src.total*Math.pow(1+i,y),src)},{id:"balanced",name:"Balanced",desc:"Moderate starting distribution using 2.4% of capital per year.",income:src.total*.024/12}]}
+function profiles(src){
+ let y=yrs("rYears","rYearsCustom"),i=infl("rInflation","rInflationCustom"),realTarget=src.total*Math.pow(1+i,y);
+ return[
+  {id:"max",name:"Maximum Distribution",short:"Maximise retirement income while targeting preservation of the original nominal capital.",income:solveIncome(src.total,src),target:src.total,
+   objective:"Highest sustainable starting income under the simulator assumptions while aiming to finish with approximately the same nominal RM capital you had at retirement.",
+   method:"The simulator solves for the highest starting monthly distribution that the underlying Savings and Wealth assets can support while targeting the original nominal capital at the end of the retirement period.",
+   trade:"Highest starting income, but weaker protection of the purchasing power of your ending capital when inflation is positive.",
+   targetLabel:"Target ending nominal capital"},
+  {id:"real",name:"Preserve Real Capital",short:"Generate retirement income while targeting preservation of the purchasing power of starting capital.",income:solveIncome(realTarget,src),target:realTarget,
+   objective:"Provide retirement income while aiming to preserve the purchasing power of the capital you had when retirement began.",
+   method:`The simulator increases the required ending nominal capital for inflation. At ${(i*100).toFixed(2)}% inflation for ${y} years, ${rm(src.total)} of starting capital requires about ${rm(realTarget)} at the end to retain similar purchasing power.`,
+   trade:"Lower starting income than Maximum Distribution, but stronger protection of long-term purchasing power.",
+   targetLabel:"Required nominal ending capital"},
+  {id:"balanced",name:"Balanced",short:"Use a deliberately conservative 2.4% starting withdrawal rate and leave a larger capital buffer invested.",income:src.total*.024/12,target:null,
+   objective:"Provide a conservative starting retirement income while leaving more capital invested for resilience and potential future growth.",
+   method:`Starting annual income is set at 2.4% of capital at retirement: ${rm(src.total)} x 2.4% / 12 = ${rm(src.total*.024/12)} per month. It is not a solver for the maximum possible income.`,
+   trade:"Lowest starting income of the three by design, with the largest initial capital buffer. The eventual capital outcome still depends on actual investment returns, inflation and withdrawals.",
+   targetLabel:"Withdrawal rule"}
+ ]}
+function profileOutcome(p,src){
+ let r=runRetirement(p.income,src),y=yrs("rYears","rYearsCustom"),i=infl("rInflation","rInflationCustom"),real=r.end/Math.pow(1+i,y);
+ return{...r,real,nominalStatus:r.end>src.total*1.005?"Grew":r.end>=src.total*.995?"Preserved":"Depleted",realStatus:real>src.total*1.005?"Grew":real>=src.total*.995?"Preserved":"Depleted"}
+}
+function renderProfileCard(p,src){
+ let o=profileOutcome(p,src),targetLine=p.id==="balanced"?"2.4% of retirement capital per year":`${p.targetLabel}: ${rm(p.target)}`;
+ return `<button class="profile-card ${p.id===retirementProfile?"active":""}" onclick="selectProfile('${p.id}')">
+   <div class="profile-name">${p.name}</div>
+   <div class="profile-desc">${p.short}</div>
+   <div class="profile-value">${rm(p.income)}/mo</div>
+   <div class="ledger-meta" style="margin-top:10px"><strong>Objective:</strong> ${p.objective}</div>
+   <div class="ledger-meta" style="margin-top:8px"><strong>How it works:</strong> ${p.method}</div>
+   <div class="ledger-meta" style="margin-top:8px"><strong>Trade-off:</strong> ${p.trade}</div>
+   <div class="profile-metrics">
+    <div><span>Capital rule / target</span><strong>${targetLine}</strong></div>
+    <div><span>Total retirement income</span><strong>${rm(o.actual)}</strong></div>
+    <div><span>Projected ending capital</span><strong>${rm(o.end)}</strong></div>
+    <div><span>Ending capital in today's RM</span><strong>${rm(o.real)}</strong></div>
+    <div><span>Nominal capital</span><strong>${o.nominalStatus}</strong></div>
+    <div><span>Real capital</span><strong>${o.realStatus}</strong></div>
+   </div>
+  </button>`
+}
 function selectProfile(id){retirementProfile=id;calculateRetirement()}
 function retirementEffectNote(name,rate,isCash=false){
  if(isCash)return "Available liquidity. It earns 0% in the current plan until allocated elsewhere; this improves immediate liquidity but contributes no investment growth.";
@@ -233,7 +287,7 @@ function renderRetirementAssetLedger(src){
 function calculateRetirement(){
  let src=sourceAtRetirement();$("rSavingsSource").textContent=rm(src.savings);$("rWealthSource").textContent=rm(src.wealth);$("rCapitalTotal").textContent=rm(src.total);renderRetirementAssetLedger(src);
  if(!src.valid||src.total<=0){$("rProfiles").innerHTML="";$("rMessage").innerHTML=`<div class="invalid"><strong>Projection unavailable</strong><br>Complete valid Savings and/or Wealth allocations so financial capital exists at retirement.</div>`;$("rResults").classList.add("hidden");results.retirement=null;return null}
- let ps=profiles(src);$("rProfiles").innerHTML=ps.map(p=>`<button class="profile-card ${p.id===retirementProfile?"active":""}" onclick="selectProfile('${p.id}')"><div class="profile-name">${p.name}</div><div class="profile-desc">${p.desc}</div><div class="profile-value">${rm(p.income)}/mo</div></button>`).join("");let p=ps.find(x=>x.id===retirementProfile)||ps[2],r=runRetirement(p.income,src),y=yrs("rYears","rYearsCustom"),i=infl("rInflation","rInflationCustom"),real=r.end/Math.pow(1+i,y);
+ let ps=profiles(src);$("rProfiles").innerHTML=ps.map(p=>renderProfileCard(p,src)).join("");let p=ps.find(x=>x.id===retirementProfile)||ps[2],r=runRetirement(p.income,src),y=yrs("rYears","rYearsCustom"),i=infl("rInflation","rInflationCustom"),real=r.end/Math.pow(1+i,y);
  $("rMessage").innerHTML="";$("rResults").classList.remove("hidden");$("rProfileName").textContent=p.name;$("rStartIncome").textContent=rm(p.income);$("rActual").textContent=rm(r.actual);$("rEndOut").textContent=rm(r.end);$("rReal").textContent=rm(real);$("rNomStatus").textContent=r.end>src.total*1.005?"Grew":r.end>=src.total*.995?"Preserved":"Depleted";$("rRealStatus").textContent=real>src.total*1.005?"Grew":real>=src.total*.995?"Preserved":"Depleted";$("rLasts").textContent=r.depleted?`Year ${Math.ceil(r.depleted/12)}`:"Entire retirement";results.retirement={...r,source:src,profile:p,real};return results.retirement
 }
 function renderLedger(){

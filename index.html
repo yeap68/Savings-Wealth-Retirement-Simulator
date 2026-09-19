@@ -26,10 +26,11 @@ header{margin:0 0 17px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-hei
 .purchasing{margin-top:19px;border:1px solid #66562d;background:#17140d;border-radius:18px;padding:17px}.purchase-row{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}.purchase-row:last-child{border:0}.purchase-row span:first-child{color:var(--muted)}.real{color:var(--gold);font-weight:800}
 .profile-card.active{border-color:#6e9de0;background:#172a41}.profile-name{font-weight:800;font-size:17px}.profile-desc{color:var(--muted);font-size:13px;margin-top:5px}.profile-value{font-size:23px;font-weight:850;margin-top:10px}.profile-target{font-size:12px;color:#9eb4cb;margin-top:3px}
 .note{margin-top:13px;padding:11px 12px;border-left:3px solid var(--gold);border-radius:7px;background:#0f171f;color:#b0bdca;font-size:13px}.assumptions{font-size:13px;color:#b3c0ce;line-height:1.7}
+.ledger-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.ledger-filter{border:1px solid var(--line);background:#0d1721;color:var(--muted);border-radius:999px;padding:9px 12px;font-size:14px}.ledger-filter.active{background:#263b58;color:#fff;border-color:#4b6c92}.ledger-section{margin-top:17px}.ledger-section-title{font-size:17px;font-weight:800;margin-bottom:8px}.ledger-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px;margin-top:8px}.ledger-main{min-width:0}.ledger-name{font-weight:800}.ledger-meta{color:var(--muted);font-size:13px;margin-top:3px}.ledger-badge{flex:0 0 auto;border:1px solid #42634f;background:#102219;color:#8de0ae;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:800}.ledger-badge.omitted{border-color:#594a3b;background:#1c1711;color:#d8b27e}.ledger-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.ledger-overview .summary-card{margin-top:0}
 .timeline{margin-top:16px;background:#09121a;border:1px solid var(--line);border-radius:16px;padding:14px}.timeline-item{padding:10px 0;border-bottom:1px solid #1e2a37}.timeline-item:last-child{border:0}.time{font-size:12px;color:#91baff;font-weight:800}
 .scroll-top{position:fixed;right:max(13px,env(safe-area-inset-right));bottom:calc(17px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:50%;border:1px solid #42566f;background:rgba(19,29,42,.95);color:#fff;font-size:21px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 9px 25px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;z-index:50}.scroll-top.show{opacity:1;visibility:visible;transform:none}
 .footer{color:#718094;font-size:12px;text-align:center;margin-top:25px}
-@media(max-width:800px){.home-grid,.summary-grid,.profile-grid,.form-grid{grid-template-columns:1fr}.inv-grid,.inv-grid.single,.event-grid{grid-template-columns:1fr 1fr}.inv-grid>div:first-child{grid-column:1/-1}}
+@media(max-width:800px){.home-grid,.summary-grid,.profile-grid,.form-grid,.ledger-overview{grid-template-columns:1fr}.inv-grid,.inv-grid.single,.event-grid{grid-template-columns:1fr 1fr}.inv-grid>div:first-child{grid-column:1/-1}}
 @media(max-width:480px){.wrap{padding-left:11px;padding-right:11px}.panel{padding:17px 13px}.title{font-size:26px}.home-card{padding:15px}.inv-grid,.inv-grid.single,.event-grid{grid-template-columns:1fr}.inv-grid>div:first-child{grid-column:auto}.purchase-row{flex-direction:column;gap:2px}.summary-card{margin-top:0}.profile-grid{gap:9px}}
 </style>
 </head>
@@ -49,6 +50,7 @@ Enter your capital and cash flows, choose a single or diversified portfolio, rev
 <button class="home-card" onclick="openPlanner('wealth')"><span class="home-tag">WEALTH</span><div class="home-name">Wealth &amp; Investment</div><div class="home-desc">Grow existing capital and measure real wealth creation after inflation.</div></button>
 <button class="home-card" onclick="openPlanner('retirement')"><span class="home-tag">RETIREMENT</span><div class="home-name">Retirement &amp; Capital Preservation</div><div class="home-desc">Compare income strategies and nominal versus real capital preservation.</div></button>
 </div>
+<div class="complete-home" style="border-color:#36556f;background:#101b27"><strong>Master Ledger</strong><div class="sub">See every financial item currently contributing to your plan, including assumptions and scheduled withdrawals.</div><div class="actions"><button class="button" onclick="openMasterLedger()">View Master Ledger</button></div></div>
 <div class="complete-home"><strong>Complete Financial Plan</strong><div class="sub">View the independent projections together without assuming they must run sequentially.</div><div class="actions"><button class="button purple" onclick="openPlanner('complete')">View Complete Plan</button></div></div>
 </section>
 
@@ -102,6 +104,33 @@ Enter your capital and cash flows, choose a single or diversified portfolio, rev
 
 <section class="panel hidden" id="completeScreen"><button class="back" onclick="showHome()">Back to planners</button><h2 class="title">Complete Financial Plan</h2><div class="sub">A summary of the independent projections. Do not add transferred balances together because that can double-count the same money.</div><div class="summary-grid"><div class="summary-card"><div class="summary-label">Savings ending balance</div><div id="cSavings" class="summary-value">-</div></div><div class="summary-card"><div class="summary-label">Wealth ending balance</div><div id="cWealth" class="summary-value">-</div></div><div class="summary-card"><div class="summary-label">Retirement ending capital</div><div id="cRetirement" class="summary-value">-</div></div></div><div class="note">Each planner can stand alone. Transfers are conveniences for scenario exploration and should not be interpreted as separate assets after the same money has been transferred.</div><div class="actions"><button class="button purple" onclick="openMasterTimeline('complete')">Master Timeline</button></div></section>
 
+<section class="panel hidden" id="ledgerScreen">
+<button class="back" onclick="closeMasterLedger()">Back</button><h2 class="title">Master Ledger</h2><div class="sub">A live overview of what is currently contributing to your financial plan. Inputs and projected outcomes are kept separate to avoid double-counting.</div>
+
+<div class="ledger-overview">
+<div class="summary-card"><div class="summary-label">Savings plan</div><div id="lSavingsHeadline" class="summary-value">-</div><div id="lSavingsSub" class="desc">-</div></div>
+<div class="summary-card"><div class="summary-label">Wealth plan</div><div id="lWealthHeadline" class="summary-value">-</div><div id="lWealthSub" class="desc">-</div></div>
+<div class="summary-card"><div class="summary-label">Retirement plan</div><div id="lRetHeadline" class="summary-value">-</div><div id="lRetSub" class="desc">-</div></div>
+</div>
+
+<details class="guide" style="margin-top:15px"><summary>Guide: how to read the Master Ledger</summary><div class="guide-body"><strong>Contributing items</strong> are the money, investments, cash flows and assumptions used by the calculators. <strong>Projected outcomes</strong> are results produced by those inputs and are shown separately so they are not mistaken for additional assets.<div class="example"><strong>Example:</strong> RM500,000 of existing Wealth capital is an input. RM1.2 million of projected ending Wealth is an outcome. They should not be added together as though they were two separate assets.</div></div></details>
+
+<div class="ledger-toolbar">
+<button id="lfAll" class="ledger-filter active" onclick="setLedgerFilter('all')">All</button>
+<button id="lfSavings" class="ledger-filter" onclick="setLedgerFilter('savings')">Savings</button>
+<button id="lfWealth" class="ledger-filter" onclick="setLedgerFilter('wealth')">Wealth</button>
+<button id="lfRetirement" class="ledger-filter" onclick="setLedgerFilter('retirement')">Retirement</button>
+</div>
+
+<div class="ledger-section"><div class="ledger-section-title">Contributing items</div><div id="ledgerItems"></div></div>
+
+<details class="guide" open><summary>Plan assumptions</summary><div id="ledgerAssumptions" class="guide-body assumptions"></div></details>
+
+<div class="ledger-section"><div class="ledger-section-title">Projected outcomes</div><div class="sub">These are calculated results, not additional financial assets.</div><div id="ledgerOutcomes" class="summary-grid"></div></div>
+
+<div class="actions"><button class="button purple" onclick="openMasterTimeline('ledger')">View Master Timeline</button><button class="button primary" onclick="openPlanner('complete')">View Complete Plan</button></div>
+</section>
+
 <section class="panel hidden" id="masterScreen"><button class="back" onclick="closeMasterTimeline()">Back</button><h2 class="title">Master Financial Timeline</h2><div class="sub">Current horizons and withdrawal events on one common time base. All modules currently start at Now.</div><div class="timeline"><div id="masterBars"></div></div><div class="timeline"><strong>Withdrawal events included in calculations</strong><div id="masterEvents"></div></div><div class="note">Only features that participate in the calculation are shown. Variable return and inflation schedules are not yet modeled.</div></section>
 
 <div id="transferModal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:80;display:flex;align-items:center;justify-content:center;padding:18px"><div class="panel" style="max-width:430px;width:100%;margin:0"><h2 id="transferTitle" class="step-title">Transfer</h2><div id="transferText" class="desc"></div><div class="actions"><button class="button primary" onclick="confirmTransfer('add')">Add to existing capital</button><button class="button" onclick="confirmTransfer('replace')">Replace existing capital</button><button class="button" onclick="closeTransfer()">Cancel</button></div></div></div>
@@ -117,7 +146,7 @@ function focusMoney(e){e.value=n(e.value).toFixed(2);setTimeout(()=>e.select(),2
 function moneyFocus(e){focusMoney(e)} function moneyBlur(e){e.value=money(n(e.value))}
 function mr(r){return Math.pow(1+r,1/12)-1}
 function esc(x){return String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-const screens=["homeScreen","savingsScreen","wealthScreen","retirementScreen","completeScreen","masterScreen"];let masterReturn="home";
+const screens=["homeScreen","savingsScreen","wealthScreen","retirementScreen","completeScreen","ledgerScreen","masterScreen"];let masterReturn="home";let ledgerFilter="all";let ledgerReturn="home";
 function topNow(){window.scrollTo(0,0);setTimeout(()=>window.scrollTo(0,0),50)}
 function openPlanner(x){screens.forEach(id=>$(id).classList.add("hidden"));$("appHeader").classList.add("hidden");$(x+"Screen").classList.remove("hidden");if(x==="savings")calculateSavings();if(x==="wealth")calculateWealth();if(x==="retirement")calculateRetirement();if(x==="complete")updateComplete();topNow()}
 function showHome(){screens.forEach(id=>$(id).classList.add("hidden"));$("appHeader").classList.remove("hidden");$("homeScreen").classList.remove("hidden");topNow()}
@@ -165,8 +194,39 @@ let transferFrom=null;function openTransfer(m){if(m==="savings"){calculateSaving
 function closeTransfer(){$("transferModal").classList.add("hidden");transferFrom=null}
 function confirmTransfer(mode){if(transferFrom==="savings"&&savingsResult){let old=n($("wExisting").value);$("wExisting").value=money(mode==="add"?old+savingsResult.ending:savingsResult.ending);closeTransfer();calculateWealth();openPlanner("wealth")}else if(transferFrom==="wealth"&&wealthResult){let old=n($("rCapital").value);$("rCapital").value=money(mode==="add"?old+wealthResult.ending:wealthResult.ending);closeTransfer();calculateRetirement();openPlanner("retirement")}}
 function updateComplete(){$("cSavings").textContent=savingsResult?rm(savingsResult.ending):"-";$("cWealth").textContent=wealthResult?rm(wealthResult.ending):"-";$("cRetirement").textContent=retirementResult?rm(retirementResult.ending):"-"}
+
+function ledgerRow(branch,name,meta,included=true){return `<div class="ledger-row" data-ledger-branch="${branch}"><div class="ledger-main"><div class="ledger-name">${esc(name)}</div><div class="ledger-meta">${meta}</div></div><div class="ledger-badge ${included?"":"omitted"}">${included?"Included":"Omitted"}</div></div>`}
+function setLedgerFilter(x){ledgerFilter=x;["all","savings","wealth","retirement"].forEach(k=>{let id="lf"+(k==="all"?"All":k[0].toUpperCase()+k.slice(1));if($(id))$(id).classList.toggle("active",k===x)});document.querySelectorAll("[data-ledger-branch]").forEach(e=>e.classList.toggle("hidden",x!=="all"&&e.dataset.ledgerBranch!==x))}
+function openMasterLedger(from="home"){ledgerReturn=from;updateMasterLedger();screens.forEach(id=>$(id).classList.add("hidden"));$("appHeader").classList.add("hidden");$("ledgerScreen").classList.remove("hidden");topNow()}
+function closeMasterLedger(){ledgerReturn&&ledgerReturn!=="home"?openPlanner(ledgerReturn):showHome()}
+function updateMasterLedger(){
+calculateSavings();calculateWealth();calculateRetirement();
+let sCap=n($("sStarting").value),sMo=n($("sMonthly").value),sY=Number($("sYears").value),wCap=n($("wExisting").value)+n($("wAdditional").value),wMo=n($("wMonthly").value),wY=Number($("wYears").value),rCap=n($("rCapital").value),rY=Number($("rYears").value);
+$("lSavingsHeadline").textContent=rm(sCap)+" + "+rm(sMo)+"/mo";$("lSavingsSub").textContent=sY+" year horizon";
+$("lWealthHeadline").textContent=rm(wCap)+" + "+rm(wMo)+"/mo";$("lWealthSub").textContent=wY+" year horizon";
+$("lRetHeadline").textContent=rm(rCap);$("lRetSub").textContent=rY+" year retirement horizon";
+let rows=[];
+rows.push(ledgerRow("savings","Starting savings",rm(sCap)+" | Now"));
+if(sMo>0)rows.push(ledgerRow("savings","Monthly savings",rm(sMo)+"/month | "+sY+" years | annual increase "+(Number($("sIncrease").value)*100).toFixed(2)+"%"));
+port("savings").forEach(x=>rows.push(ledgerRow("savings",x.name,(state.savings.approach==="single"?"100% of Savings":x.capitalPct.toFixed(2)+"% current / "+x.contributionPct.toFixed(2)+"% new")+" | planning return "+(x.rate*100).toFixed(2)+"% p.a.")));
+events.savings.forEach(e=>{let src=port("savings").find(x=>x.id===e.source);rows.push(ledgerRow("savings","Scheduled withdrawal","-"+rm(e.amount)+" | Year "+(Math.floor((e.month-1)/12)+1)+", Month "+((e.month-1)%12+1)+" | "+(src?esc(src.name):"funding source incomplete"),!!src))});
+rows.push(ledgerRow("wealth","Existing and additional capital",rm(wCap)+" | Now"));
+if(wMo>0)rows.push(ledgerRow("wealth","Regular new investment",rm(wMo)+"/month | "+wY+" years"));
+port("wealth").forEach(x=>rows.push(ledgerRow("wealth",x.name,(state.wealth.approach==="single"?"100% of Wealth":x.capitalPct.toFixed(2)+"% current / "+x.contributionPct.toFixed(2)+"% new")+" | planning return "+(x.rate*100).toFixed(2)+"% p.a.")));
+events.wealth.forEach(e=>{let src=port("wealth").find(x=>x.id===e.source);rows.push(ledgerRow("wealth","Scheduled withdrawal","-"+rm(e.amount)+" | Year "+(Math.floor((e.month-1)/12)+1)+", Month "+((e.month-1)%12+1)+" | "+(src?esc(src.name):"funding source incomplete"),!!src))});
+rows.push(ledgerRow("retirement","Retirement capital",rm(rCap)+" | "+rY+" year plan"));
+port("retirement").forEach(x=>rows.push(ledgerRow("retirement",x.name,(state.retirement.approach==="single"?"100% of Retirement":x.capitalPct.toFixed(2)+"% allocation")+" | planning return "+(x.rate*100).toFixed(2)+"% p.a.")));
+let rp=retirementProfiles()[retirementProfile];rows.push(ledgerRow("retirement",rp.name,"Selected retirement strategy | starting income "+rm(rp.income)+"/month"));
+$("ledgerItems").innerHTML=rows.join("");
+$("ledgerAssumptions").innerHTML=`<strong>Savings</strong><br>Horizon: ${sY} years<br>Inflation for purchasing power: ${(Number($("sInflation").value)*100).toFixed(2)}% p.a.<br><br><strong>Wealth</strong><br>Horizon: ${wY} years<br>Inflation for real wealth: ${(Number($("wInflation").value)*100).toFixed(2)}% p.a.<br><br><strong>Retirement</strong><br>Horizon: ${rY} years<br>Inflation: ${(Number($("rInflation").value)*100).toFixed(2)}% p.a.<br>Income increase: ${(incomeIncrease()*100).toFixed(2)}% p.a.`;
+let outcomes=[];
+outcomes.push(`<div class="summary-card"><div class="summary-label">Savings accumulated</div><div class="summary-value">${savingsResult?rm(savingsResult.ending):"Unavailable"}</div><div class="desc">${savingsResult?"Today's purchasing power: "+$("sReal").textContent:"Complete Savings inputs"}</div></div>`);
+outcomes.push(`<div class="summary-card"><div class="summary-label">Ending wealth</div><div class="summary-value">${wealthResult?rm(wealthResult.ending):"Unavailable"}</div><div class="desc">${wealthResult?"Real wealth created: "+$("wRealCreated").textContent:"Complete Wealth inputs"}</div></div>`);
+outcomes.push(`<div class="summary-card"><div class="summary-label">Retirement</div><div class="summary-value">${retirementResult?rm(retirementResult.startIncome)+"/mo":"Unavailable"}</div><div class="desc">${retirementResult?"Ending capital: "+rm(retirementResult.ending)+" | "+$("rPreservation").textContent:"Complete Retirement inputs"}</div></div>`);
+$("ledgerOutcomes").innerHTML=outcomes.join("");setLedgerFilter(ledgerFilter)
+}
 function openMasterTimeline(from){masterReturn=from;updateMasterTimeline();screens.forEach(id=>$(id).classList.add("hidden"));$("appHeader").classList.add("hidden");$("masterScreen").classList.remove("hidden");topNow()}
-function closeMasterTimeline(){masterReturn&&masterReturn!=="home"?openPlanner(masterReturn):showHome()}
+function closeMasterTimeline(){if(masterReturn==="ledger"){openMasterLedger();return}masterReturn&&masterReturn!=="home"?openPlanner(masterReturn):showHome()}
 function updateMasterTimeline(){let rows=[["Savings",Number($("sYears").value)],["Wealth",Number($("wYears").value)],["Retirement",Number($("rYears").value)]];$("masterBars").innerHTML=rows.map(x=>`<div class="timeline-item"><strong>${x[0]}</strong><div class="desc">${x[1]} year horizon from Now</div><div style="height:9px;background:#132334;border-radius:99px;margin-top:7px;overflow:hidden"><div style="height:100%;width:${Math.min(100,x[1]/50*100)}%;background:#4f83c5"></div></div></div>`).join("");let all=[];["savings","wealth"].forEach(m=>events[m].forEach(e=>all.push({m,e})));all.sort((a,b)=>a.e.month-b.e.month);$("masterEvents").innerHTML=all.length?all.map(x=>`<div class="timeline-item"><div class="time">${x.m.toUpperCase()} - YEAR ${Math.floor((x.e.month-1)/12)+1}, MONTH ${(x.e.month-1)%12+1}</div><strong>${rm(x.e.amount)} withdrawal</strong></div>`).join(""):'<div class="desc" style="margin-top:10px">No withdrawal events scheduled.</div>'}
 function scrollButton(){let b=$("scrollTopButton");b.classList.toggle("show",window.scrollY>420)}window.addEventListener("scroll",scrollButton,{passive:true});
 function init(){["savings","wealth","retirement"].forEach(renderPortfolio);renderEvents("savings");renderEvents("wealth");calculateSavings();calculateWealth();calculateRetirement();showHome();scrollButton()}init();

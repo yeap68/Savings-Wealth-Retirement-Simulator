@@ -31,6 +31,8 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 .info-section{border-top:1px solid var(--border);padding-top:12px;margin-top:12px}.info-section strong{display:block;margin-bottom:5px}.info-section p{margin:0;color:#c6d0dc;line-height:1.55}
 .dependency-panel{background:#151d27;border:1px solid #6d5d32;border-radius:16px;padding:18px;margin:16px 0}.dependency-title{font-size:20px;font-weight:850;margin-bottom:8px}
 .arch-flow{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}.arch-node{border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:#101923;font-weight:700}.arch-arrow{color:var(--muted);font-weight:800}
+
+.empty-state{background:var(--card2);border:1px dashed var(--border);border-radius:15px;padding:18px;margin-top:14px}.empty-state strong{font-size:17px}
 </style>
 </head>
 <body>
@@ -55,7 +57,7 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 <section class="panel hidden" id="savingsScreen">
 <button class="back" onclick="showHome()">Back to planners</button><h2 class="title">Savings</h2><div class="sub">If I commit money to saving regularly, what could I accumulate?</div>
 <div class="step"><div class="step-title">1. What's the committed monthly savings fund?</div><div class="form-grid">
-<div><label>Monthly savings commitment</label><input id="sMonthly" value="500.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateSavings()"></div>
+<div><label>Monthly savings commitment</label><input id="sMonthly" value="0.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateSavings()"></div>
 <div><label>Increase my monthly saving each year?</label><select id="sIncrease" onchange="toggleCustom('sIncrease','sIncreaseCustom');calculateSavings()"><option value="0" selected>No increase</option><option value=".02">2.00%</option><option value=".03">3.00%</option><option value=".05">5.00%</option><option value="custom">Custom</option></select><input id="sIncreaseCustom" class="hidden inline-custom" type="number" inputmode="decimal" min="0" step=".1" placeholder="Custom % p.a." oninput="calculateSavings()"></div>
 <div><label>Saving period</label><select id="sYears" onchange="toggleCustom('sYears','sYearsCustom');calculateSavings()"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>25</option><option>30</option><option>40</option><option>50</option><option value="custom">Custom</option></select><input id="sYearsCustom" class="hidden inline-custom" type="number" inputmode="numeric" min="1" max="100" placeholder="Custom years" oninput="calculateSavings()"></div></div>
 <div class="note">The savings commitment is the money you put aside. The annual increase changes your contribution amount; it is not an investment return.</div></div>
@@ -78,9 +80,9 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 <section class="panel hidden" id="wealthScreen">
 <button class="back" onclick="showHome()">Back to planners</button><h2 class="title">Wealth &amp; Investment</h2><div class="sub">What could happen to the investment capital I already have, and how can I grow it?</div>
 <div class="step"><div class="step-title">1. What is your investment capital?</div><div class="form-grid">
-<div><label>Current Investment Capital</label><input id="wExisting" value="500,000.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateWealth()"></div>
+<div><label>Current Investment Capital</label><input id="wExisting" value="0.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateWealth()"></div>
 <div><label>Additional Investment Capital - optional</label><input id="wAdditional" value="0.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateWealth()"></div>
-<div><label>Monthly Investment Contribution - optional</label><input id="wMonthly" value="2,000.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateWealth()"></div>
+<div><label>Monthly Investment Contribution - optional</label><input id="wMonthly" value="0.00" inputmode="decimal" onfocus="moneyFocus(this)" onblur="moneyBlur(this);calculateWealth()"></div>
 <div><label>Investment period</label><select id="wYears" onchange="toggleCustom('wYears','wYearsCustom');calculateWealth()"><option>5</option><option>10</option><option selected>15</option><option>20</option><option>25</option><option>30</option><option>40</option><option>50</option><option value="custom">Custom</option></select><input id="wYearsCustom" class="hidden inline-custom" type="number" inputmode="numeric" min="1" max="100" placeholder="Custom years" oninput="calculateWealth()"></div></div></div>
 
 <div class="step"><div class="step-title">2. How is your investment capital allocated?</div><div class="segmented"><button id="wSingle" class="segment" onclick="setApproach('wealth','single')">Single investment</button><button id="wDiversified" class="segment active" onclick="setApproach('wealth','diversified')">Diversified portfolio</button></div><div id="wPortfolio"></div></div>
@@ -160,10 +162,13 @@ const $=id=>document.getElementById(id);
 const products={cash:{name:"Cash in Hand",rate:0},deposit:{name:"Bank Deposit",rate:.02},epf:{name:"EPF",rate:.05},mgs:{name:"MGS/GII",rate:.0417},qqq:{name:"QQQ ETF",rate:.08},cibr:{name:"CIBR ETF",rate:.08},custom:{name:"Custom Investment",rate:.04}};
 let uid=20,retirementProfile="balanced";
 const state={
- savings:{approach:"single",portfolio:[{id:"s1",type:"deposit",name:"Bank Deposit",rate:.02,pct:100,amount:500}]},
+ savings:{approach:"single",portfolio:[{id:"s1",type:"deposit",name:"Bank Deposit",rate:.02,pct:100,amount:0}]},
  wealth:{approach:"diversified",portfolio:[{id:"w1",type:"mgs",name:"MGS/GII",rate:.0417,pct:50,newPct:50},{id:"w2",type:"qqq",name:"QQQ ETF",rate:.08,pct:50,newPct:50}]}
 };
 const events={savings:[],wealth:[]};let results={savings:null,wealth:null,retirement:null};
+function savingsActive(){return num($("sMonthly").value)>0}
+function wealthActive(){return num($("wExisting").value)>0||num($("wAdditional").value)>0||num($("wMonthly").value)>0}
+function anyPlanActive(){return savingsActive()||wealthActive()}
 function num(v){let x=parseFloat(String(v??"").replace(/,/g,""));return Number.isFinite(x)?x:0}
 function rm(v){return new Intl.NumberFormat("en-MY",{style:"currency",currency:"MYR",maximumFractionDigits:0}).format(Number.isFinite(v)?v:0)}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
@@ -233,8 +238,8 @@ function calculateWealth(){
  let i=infl("wInflation","wInflationCustom"),real=r.valid?r.end/Math.pow(1+i,y):0,pvc=0,pvw=0,monthly=num($("wMonthly").value);for(let m=1;m<=y*12;m++)pvc+=monthly/Math.pow(1+i,m/12);events.wealth.forEach(e=>{let mm=(Math.max(1,e.year)-1)*12+Math.min(12,Math.max(1,e.month));if(mm<=y*12)pvw+=e.amount/Math.pow(1+i,mm/12)});
  $("wNominal").textContent=r.valid?rm(r.end):"-";$("wReal").textContent=r.valid?rm(real):"-";$("wRealContrib").textContent=r.valid?rm(pvc):"-";$("wRealWithdraw").textContent=r.valid?rm(pvw):"-";$("wRealCreated").textContent=r.valid?rm(real-(num($("wExisting").value)+num($("wAdditional").value))-pvc+pvw):"-";return r
 }
-function sourceAtRetirement(){let y=yrs("rStartYears","rStartYearsCustom"),s=savingsAt(y),w=wealthAt(y);return{start:y,savings:s.valid?s.end:0,wealth:w.valid?w.end:0,total:(s.valid?s.end:0)+(w.valid?w.end:0),valid:s.valid&&w.valid}}
-function retirementAssets(src){let s=savingsAt(src.start),w=wealthAt(src.start),a=[];if(s.valid&&s.holdings)s.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Savings - "+x.name,balance:x.balance,rate:x.rate})});if(w.valid&&w.holdings)w.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Wealth - "+x.name,balance:x.balance,rate:x.rate})});return a}
+function sourceAtRetirement(){let y=yrs("rStartYears","rStartYearsCustom"),sa=savingsActive(),wa=wealthActive(),s=sa?savingsAt(y):{valid:true,end:0},w=wa?wealthAt(y):{valid:true,end:0};return{start:y,savings:sa&&s.valid?s.end:0,wealth:wa&&w.valid?w.end:0,total:(sa&&s.valid?s.end:0)+(wa&&w.valid?w.end:0),valid:(!sa||s.valid)&&(!wa||w.valid)&&(sa||wa),savingsActive:sa,wealthActive:wa}}
+function retirementAssets(src){let s=src.savingsActive?savingsAt(src.start):null,w=src.wealthActive?wealthAt(src.start):null,a=[];if(s&&s.valid&&s.holdings)s.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Savings - "+x.name,balance:x.balance,rate:x.rate})});if(w&&w.valid&&w.holdings)w.holdings.forEach(x=>{if(x.balance>0)a.push({name:"Wealth - "+x.name,balance:x.balance,rate:x.rate})});return a}
 function runRetirement(startMonthly,src){let a=retirementAssets(src).map(x=>({...x})),months=yrs("rYears","rYearsCustom")*12,inc=annualIncrease(),requested=0,actual=0,depleted=0;for(let m=1;m<=months;m++){a.forEach(x=>x.balance*=1+mrate(x.rate));let req=startMonthly*Math.pow(1+inc,Math.floor((m-1)/12));requested+=req;let total=a.reduce((z,x)=>z+x.balance,0),take=Math.min(req,total);actual+=take;if(total>0&&take>0)a.forEach(x=>x.balance-=take*(x.balance/total));if(take+.01<req&&!depleted)depleted=m}return{end:a.reduce((z,x)=>z+x.balance,0),requested,actual,depleted}}
 function solveIncome(target,src){let lo=0,hi=Math.max(1000,src.total/30);for(let k=0;k<90;k++){let mid=(lo+hi)/2,r=runRetirement(mid,src);if(r.end>=target&&!r.depleted)lo=mid;else hi=mid}return lo}
 function profiles(src){
@@ -299,24 +304,56 @@ function calculateRetirement(){let pre=sourceAtRetirement(),ready=pre.valid&&pre
  $("rMessage").innerHTML="";$("rResults").classList.remove("hidden");$("rProfileName").textContent=p.name;$("rStartIncome").textContent=rm(p.income);$("rActual").textContent=rm(r.actual);$("rEndOut").textContent=rm(r.end);$("rReal").textContent=rm(real);$("rNomStatus").textContent=r.end>src.total*1.005?"Grew":r.end>=src.total*.995?"Preserved":"Depleted";$("rRealStatus").textContent=real>src.total*1.005?"Grew":real>=src.total*.995?"Preserved":"Depleted";$("rLasts").textContent=r.depleted?`Year ${Math.ceil(r.depleted/12)}`:"Entire retirement";results.retirement={...r,source:src,profile:p,real};return results.retirement
 }
 function renderLedger(){
- let s=calculateSavings(),w=calculateWealth(),src=sourceAtRetirement();
+ let sa=savingsActive(),wa=wealthActive(),s=sa?calculateSavings():null,w=wa?calculateWealth():null,src=sourceAtRetirement();
  const row=(name,meta)=>`<div class="ledger-row"><div><div class="ledger-name">${esc(name)}</div><div class="ledger-meta">${meta}</div></div><span class="badge">Included</span></div>`;
- const sec=(name,rows)=>`<div class="ledger-section"><div class="ledger-section-title">${name}</div>${rows.join("")}</div>`;
- let h=sec("Savings",[row("Monthly savings commitment",rm(num($("sMonthly").value))+"/month"),...state.savings.portfolio.map(x=>row(x.name,(state.savings.approach==="single"?"100.00":x.pct.toFixed(2))+"% | "+(x.rate*100).toFixed(2)+"% planning return"))]);
- h+=sec("Wealth & Investment",[row("Current Investment Capital",rm(num($("wExisting").value)+num($("wAdditional").value))),row("Monthly Investment Contribution",rm(num($("wMonthly").value))+"/month"),...state.wealth.portfolio.map(x=>row(x.name,(state.wealth.approach==="single"?"100.00":x.pct.toFixed(2))+"% current allocation | "+(x.rate*100).toFixed(2)+"% planning return"))]);
-
- h+=sec("Retirement",[row("Capital in Hand at retirement",rm(src.total)+" | Savings + Wealth; not another asset"),row("Retirement objective",retirementProfile==="max"?"Maximum Distribution":retirementProfile==="real"?"Preserve Real Capital":"Balanced")]);
- h+=`<div class="audit"><strong>Capital control:</strong> Retirement reads the same underlying financial assets. It is never added again to total financial capital.</div>`;
- h+=sec("Projected Outcomes",[row("Savings Fund at selected savings horizon",s.valid?rm(s.end):"Projection unavailable"),row("Wealth at selected investment horizon",w.valid?rm(w.end):"Projection unavailable")]);$("ledgerBody").innerHTML=h
+ const sec=(name,rows)=>rows.length?`<div class="ledger-section"><div class="ledger-section-title">${name}</div>${rows.join("")}</div>`:"";
+ if(!sa&&!wa){$("ledgerBody").innerHTML=`<div class="empty-state"><strong>No financial assets added yet</strong><div class="sub" style="margin-top:8px">Your Master Ledger will populate automatically after you enter a Savings commitment, Wealth & Investment capital, or an investment contribution.</div><div class="audit"><strong>Nothing is counted by default.</strong> Product selections, planning-return assumptions and example settings do not become financial assets until you enter actual money.</div></div>`;return}
+ let h="";
+ if(sa){
+   let rows=[row("Monthly savings commitment",rm(num($("sMonthly").value))+"/month")];
+   if(s&&s.valid&&s.holdings)s.holdings.filter(x=>x.balance>0).forEach(x=>rows.push(row(x.name,(x.rate*100).toFixed(2)+"% planning return | "+rm(x.balance)+" projected at selected horizon")));
+   h+=sec("Savings",rows)
+ }
+ if(wa){
+   let rows=[];
+   let cap=num($("wExisting").value)+num($("wAdditional").value),monthly=num($("wMonthly").value);
+   if(cap>0)rows.push(row("Current Investment Capital",rm(cap)));
+   if(monthly>0)rows.push(row("Monthly Investment Contribution",rm(monthly)+"/month"));
+   if(w&&w.valid&&w.holdings)w.holdings.filter(x=>x.balance>0).forEach(x=>rows.push(row(x.name,(x.rate*100).toFixed(2)+"% planning return | "+rm(x.balance)+" projected at selected horizon")));
+   h+=sec("Wealth & Investment",rows)
+ }
+ if(src.valid&&src.total>0){
+   h+=sec("Retirement",[row("Capital in Hand at retirement",rm(src.total)+" | Savings + Wealth; not another asset"),row("Retirement objective",retirementProfile==="max"?"Maximum Distribution":retirementProfile==="real"?"Preserve Real Capital":"Balanced")]);
+   h+=`<div class="audit"><strong>Capital control:</strong> Retirement reads the same underlying financial assets. It is never added again to total financial capital.</div>`
+ }else{
+   h+=`<div class="ledger-section"><div class="ledger-section-title">Retirement</div><div class="empty-state"><strong>Not ready</strong><div class="sub" style="margin-top:6px">Retirement becomes available when an active Savings and/or Wealth plan produces capital at the retirement date.</div></div></div>`
+ }
+ let outcomes=[];
+ if(sa)outcomes.push(row("Savings Fund at selected savings horizon",s&&s.valid?rm(s.end):"Projection unavailable"));
+ if(wa)outcomes.push(row("Wealth at selected investment horizon",w&&w.valid?rm(w.end):"Projection unavailable"));
+ h+=sec("Projected Outcomes",outcomes);
+ $("ledgerBody").innerHTML=h
 }
-function renderTimeline(){let sy=yrs("sYears","sYearsCustom"),wy=yrs("wYears","wYearsCustom"),rs=yrs("rStartYears","rStartYearsCustom"),ry=yrs("rYears","rYearsCustom");let h=`<div class="timeline-item"><div class="time">NOW - YEAR ${sy}</div><strong>Savings</strong><div class="muted">${rm(num($("sMonthly").value))}/month committed saving</div></div><div class="timeline-item"><div class="time">NOW - YEAR ${wy}</div><strong>Wealth & Investment</strong><div class="muted">${rm(num($("wExisting").value)+num($("wAdditional").value))} investment capital + ${rm(num($("wMonthly").value))}/month contribution</div></div><div class="timeline-item"><div class="time">YEAR ${rs} - YEAR ${rs+ry}</div><strong>Retirement</strong><div class="muted">Retirement income begins. Existing Savings and Wealth assets continue as the underlying capital.</div></div>`;[...events.savings.map(e=>({...e,k:"Savings"})),...events.wealth.map(e=>({...e,k:"Wealth"}))].sort((a,b)=>a.year-b.year||a.month-b.month).forEach(e=>h+=`<div class="timeline-item"><div class="time">YEAR ${e.year}, MONTH ${e.month}</div><strong>${e.k} withdrawal</strong><div class="muted">${rm(e.amount)}</div></div>`);$("timelineBody").innerHTML=h}
-function renderComplete(){let src=sourceAtRetirement(),r=results.retirement||calculateRetirement();$("completeBody").innerHTML=`<div class="summary-grid"><div class="summary-card"><div class="summary-label">Savings at retirement</div><div class="summary-value">${rm(src.savings)}</div></div><div class="summary-card"><div class="summary-label">Wealth at retirement</div><div class="summary-value">${rm(src.wealth)}</div></div><div class="summary-card"><div class="summary-label">Unique Capital in Hand</div><div class="summary-value good">${rm(src.total)}</div></div><div class="summary-card"><div class="summary-label">Retirement starting income</div><div class="summary-value">${r?rm(r.profile.income)+"/mo":"-"}</div></div><div class="summary-card"><div class="summary-label">Retirement ending capital</div><div class="summary-value">${r?rm(r.end):"-"}</div></div></div><div class="audit"><strong>Reconciliation:</strong> Savings + Wealth = unique financial capital. Retirement is a strategy applied to that capital, not an additional asset.</div>`}
+function renderTimeline(){
+ let sa=savingsActive(),wa=wealthActive(),sy=yrs("sYears","sYearsCustom"),wy=yrs("wYears","wYearsCustom"),rs=yrs("rStartYears","rStartYearsCustom"),ry=yrs("rYears","rYearsCustom"),h="";
+ if(!sa&&!wa){$("timelineBody").innerHTML=`<div class="empty-state"><strong>No active financial timeline yet</strong><div class="sub" style="margin-top:8px">Enter a Savings commitment, Wealth capital, or investment contribution to start the timeline.</div></div>`;return}
+ if(sa)h+=`<div class="timeline-item"><div class="time">NOW - YEAR ${sy}</div><strong>Savings</strong><div class="muted">${rm(num($("sMonthly").value))}/month committed saving</div></div>`;
+ if(wa)h+=`<div class="timeline-item"><div class="time">NOW - YEAR ${wy}</div><strong>Wealth & Investment</strong><div class="muted">${rm(num($("wExisting").value)+num($("wAdditional").value))} investment capital + ${rm(num($("wMonthly").value))}/month contribution</div></div>`;
+ let src=sourceAtRetirement();if(src.valid&&src.total>0)h+=`<div class="timeline-item"><div class="time">YEAR ${rs} - YEAR ${rs+ry}</div><strong>Retirement</strong><div class="muted">Retirement income begins using the Savings and Wealth assets then in hand.</div></div>`;
+ [...events.savings.map(e=>({...e,k:"Savings"})),...events.wealth.map(e=>({...e,k:"Wealth"}))].sort((a,b)=>a.year-b.year||a.month-b.month).forEach(e=>h+=`<div class="timeline-item"><div class="time">YEAR ${e.year}, MONTH ${e.month}</div><strong>${e.k} withdrawal</strong><div class="muted">${rm(e.amount)}</div></div>`);
+ $("timelineBody").innerHTML=h
+}
+function renderComplete(){
+ if(!anyPlanActive()){$("completeBody").innerHTML=`<div class="empty-state"><strong>No financial plan established yet</strong><div class="sub" style="margin-top:8px">Start with Savings, Wealth & Investment, or both. The Complete Financial Plan will then combine the active plans without double-counting capital.</div></div>`;return}
+ let src=sourceAtRetirement(),r=src.valid?(results.retirement||calculateRetirement()):null;
+ $("completeBody").innerHTML=`<div class="summary-grid"><div class="summary-card"><div class="summary-label">Savings at retirement</div><div class="summary-value">${rm(src.savings)}</div></div><div class="summary-card"><div class="summary-label">Wealth at retirement</div><div class="summary-value">${rm(src.wealth)}</div></div><div class="summary-card"><div class="summary-label">Unique Capital in Hand</div><div class="summary-value good">${rm(src.total)}</div></div><div class="summary-card"><div class="summary-label">Retirement starting income</div><div class="summary-value">${r?rm(r.profile.income)+"/mo":"-"}</div></div><div class="summary-card"><div class="summary-label">Retirement ending capital</div><div class="summary-value">${r?rm(r.end):"-"}</div></div></div><div class="audit"><strong>Reconciliation:</strong> Savings + Wealth = unique financial capital. Retirement is a strategy applied to that capital, not an additional asset.</div>`
+}
 function recalcAll(rerender=true){if(rerender){renderPortfolio("savings");renderPortfolio("wealth");renderEvents("savings");renderEvents("wealth")}calculateSavings();calculateWealth();calculateRetirement()}
 window.addEventListener("scroll",()=>$("scrollTop").classList.toggle("show",window.scrollY>500));
 renderPortfolio("savings");renderPortfolio("wealth");renderEvents("savings");renderEvents("wealth");recalcAll(false);
 
 const INFO={
-about:{title:"How this simulator works",meaning:"This is a scenario-planning tool. Savings and Wealth contain the actual financial assets. Retirement is a downstream strategy that uses those assets; it is not another account.",use:"Start with Savings for regular future saving, Wealth & Investment for capital you already own, or both. Retirement then reads the projected assets automatically.",example:"If you save RM2,000 per month and already have RM500,000 invested, both pools grow separately. At retirement the simulator combines their projected balances without duplicating them.",watch:"Contributions add new money. Transfers or reallocations move existing money. Withdrawals remove money. One real asset should be entered only once.",limitations:"Planning returns and inflation are assumptions, not forecasts. Returns are modelled smoothly, so sequence-of-returns risk is simplified. Taxes, fees, transaction costs and FX movements may not be fully modelled. Actual outcomes can differ materially."},
+about:{title:"How this simulator works",meaning:"This is a scenario-planning tool. Savings and Wealth contain the actual financial assets. Retirement is a downstream strategy that uses those assets; it is not another account.",use:"Start with Savings for regular future saving, Wealth & Investment for capital you already own, or both. A planner is included only after you enter actual money. Retirement then reads the projected assets automatically.",example:"If you save RM2,000 per month and already have RM500,000 invested, both pools grow separately. At retirement the simulator combines their projected balances without duplicating them.",watch:"Contributions add new money. Transfers or reallocations move existing money. Withdrawals remove money. One real asset should be entered only once.",limitations:"Planning returns and inflation are assumptions, not forecasts. Returns are modelled smoothly, so sequence-of-returns risk is simplified. Taxes, fees, transaction costs and FX movements may not be fully modelled. Actual outcomes can differ materially."},
 savings:{title:"Savings",meaning:"Savings models money you commit to put aside regularly.",use:"Enter the monthly commitment and allocate that RM amount among Cash in Hand, deposits, bonds, ETFs or other investments.",example:"RM500/month can be RM100 Cash in Hand, RM100 Bank Deposit and RM300 QQQ. The app calculates 20%, 20% and 60%.",watch:"Monthly RM allocations must add up to the monthly savings commitment."},
 cash:{title:"Cash in Hand",meaning:"Saved money that is intentionally unallocated or still looking for a purpose or place to invest.",use:"It remains inside Savings and is included in financial capital and Retirement. The current model assigns it a 0% planning return.",example:"RM100 of a RM500 monthly commitment left as Cash in Hand means 20% stays liquid and unallocated.",watch:"Cash provides liquidity, but at 0% it contributes no investment growth and may lose purchasing power to inflation."},
 wealth:{title:"Wealth & Investment",meaning:"Wealth models investment capital you already own and capital you may add later.",use:"Record current capital and holdings, then optionally add future investment contributions and withdrawals.",example:"RM500,000 might be allocated 40% QQQ, 30% MGS/GII and 30% Custom Investment.",watch:"Moving money between holdings is reallocation, not new wealth."},

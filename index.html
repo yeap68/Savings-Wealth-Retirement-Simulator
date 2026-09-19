@@ -80,53 +80,85 @@ header{margin-bottom:18px}h1{margin:0 0 8px;font-size:clamp(31px,7vw,50px);line-
 <div class="home-block ledger-home"><strong>Master Ledger</strong><div class="sub">See what is included, where your money sits, and the assumptions currently in force.</div><div class="actions"><button class="button primary-ledger" onclick="openScreen('ledger')">View Master Ledger</button><button class="button" onclick="openScreen('timeline')">Master Timeline</button></div></div>
 <div class="home-block complete-home"><strong>Complete Financial Plan</strong><div class="sub">See Savings, Wealth and Retirement together without counting the same money twice.</div><div class="actions"><button class="button" onclick="openScreen('complete')">View Complete Plan</button></div>
 <section class="panel" id="referenceRatesPanel">
-  <div class="reference-sticky"><strong>REFERENCE DATA</strong><span>Last refreshed: 19 Sep 2026</span><small>Sources: DOSM Â· BNM Â· EPF Â· published Malaysian bank comparisons</small></div>
+  <div class="reference-sticky"><strong>REFERENCE DATA</strong><span>Last refreshed: 19 Sep 2026</span><small>Sources: DOSM | BNM | EPF | Malaysian bank published rates and comparisons</small></div>
   <div class="section-title">Reference Centre <button class="info-btn" onclick="openInfo('referenceRates')" aria-label="About reference data">i</button></div>
-  <div class="sub">Neutral reference data to help you form your own assumptions. No market security, ETF, REIT or investment product is promoted here.</div>
+  <div class="sub">Practical reference data to help you choose reasonable simulator assumptions. Market securities, ETFs, REITs and individual investments are not listed here.</div>
   <div class="audit"><strong>Reference data != recommended investment != planning return.</strong> Reference observations are not forecasts and do not automatically change any simulator assumption.</div>
 
+  <div class="summary-grid" style="margin-top:14px">
+    <div class="summary-card"><div class="summary-label">Latest inflation</div><div class="summary-value">1.9%</div><div class="desc">Aug 2026 YoY</div></div>
+    <div class="summary-card"><div class="summary-label">10Y MGS yield</div><div class="summary-value">3.92%</div><div class="desc">18 Sep 2026</div></div>
+    <div class="summary-card"><div class="summary-label">EPF latest dividend</div><div class="summary-value">6.15%</div><div class="desc">FY2025</div></div>
+    <div class="summary-card"><div class="summary-label">12M standard FD reference</div><div class="summary-value">about 1.8%-2.0%</div><div class="desc">Published board rates</div></div>
+    <div class="summary-card"><div class="summary-label">12M promotional FD reference</div><div class="summary-value">up to 3.80%</div><div class="desc">Selected Sep 2026 campaigns</div></div>
+  </div>
+
   <details class="reference-section" open><summary>Inflation &amp; CPI</summary><div class="reference-body">
-    <div class="reference-date">Latest reference: Aug 2026 Â· Source: Department of Statistics Malaysia (DOSM)</div>
+    <div class="reference-date">Latest reference: Aug 2026 | Source: Department of Statistics Malaysia (DOSM)</div>
     <div class="table-scroll"><table class="ref-table"><thead><tr><th>Period</th><th>YoY inflation</th><th>Use in simulator</th></tr></thead><tbody><tr><td>Aug 2026</td><td><strong>1.9%</strong></td><td>Current reference only; choose your own long-term inflation assumption.</td></tr></tbody></table></div>
     <a class="reference-link" href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-aug2026" target="_blank" rel="noopener noreferrer">Open DOSM CPI source &gt;</a>
   </div></details>
 
   <details class="reference-section"><summary>Malaysian Government Securities</summary><div class="reference-body">
-    <div class="reference-date">Market data: 18 Sep 2026 Â· Source: Bank Negara Malaysia FMIP</div>
+    <div class="reference-date">Market data: 18 Sep 2026 | Source: Bank Negara Malaysia FMIP</div>
     <h4>Short-term government bills</h4>
     <div class="table-scroll"><table class="ref-table"><thead><tr><th>Instrument</th><th>Up to 3M</th><th>&gt;3-6M</th><th>&gt;6-12M</th></tr></thead><tbody><tr><td>MTB</td><td>2.97%</td><td>3.02%</td><td>3.05%</td></tr><tr><td>MITB</td><td>2.95%</td><td>3.01%</td><td>3.05%</td></tr></tbody></table></div>
     <h4>Benchmark trading yields</h4>
     <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenor</th><th>MGS</th><th>MGII</th></tr></thead><tbody><tr><td>3Y</td><td>3.43%</td><td>3.52%</td></tr><tr><td>5Y</td><td>3.77%</td><td>3.73%</td></tr><tr><td>7Y</td><td>3.91%</td><td>3.83%</td></tr><tr><td>10Y</td><td>3.92%</td><td>3.95%</td></tr></tbody></table></div>
-    <div class="note">These are market reference yields, not guaranteed future reinvestment returns. Treasury Bills are part of Malaysian government securities, not a separate asset class.</div>
+    <div class="note">These are market reference yields, not guaranteed future reinvestment returns. Treasury Bills are part of Malaysian government securities.</div>
     <a class="reference-link" href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3" target="_blank" rel="noopener noreferrer">Open BNM benchmark yields &gt;</a>
   </div></details>
 
   <details class="reference-section"><summary>EPF Historical Dividend Rates</summary><div class="reference-body">
-    <div class="reference-date">Latest published: FY2025 Â· Source: Employees Provident Fund (EPF)</div>
+    <div class="reference-date">Latest published: FY2025 | Source: Employees Provident Fund (EPF)</div>
     <div class="table-scroll"><table class="ref-table"><thead><tr><th>Year</th><th>Conventional</th><th>Shariah</th></tr></thead><tbody><tr><td>2025</td><td>6.15%</td><td>6.15%</td></tr><tr><td>2024</td><td>6.30%</td><td>6.30%</td></tr><tr><td>2023</td><td>5.50%</td><td>5.40%</td></tr><tr><td>2022</td><td>5.35%</td><td>4.75%</td></tr><tr><td>2021</td><td>6.10%</td><td>5.65%</td></tr><tr><td>2020</td><td>5.20%</td><td>4.90%</td></tr><tr><td>2019</td><td>5.45%</td><td>5.00%</td></tr><tr><td>2018</td><td>6.15%</td><td>5.90%</td></tr><tr><td>2017</td><td>6.90%</td><td>6.40%</td></tr></tbody></table></div>
     <a class="reference-link" href="https://www.kwsp.gov.my/en/others/resource-centre/dividend" target="_blank" rel="noopener noreferrer">Open full EPF dividend history &gt;</a>
   </div></details>
 
-  <details class="reference-section"><summary>MYR Fixed Deposits</summary><div class="reference-body">
-    <div class="reference-date">Comparison checked: 7 Sep 2026 Â· Source: published Malaysian FD comparison</div>
-    <h4>Standard / board-rate reference</h4>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenure</th><th>Highest published board rate in comparison</th><th>Typical minimum among leading entries</th></tr></thead><tbody><tr><td>1 month</td><td>2.65%</td><td>RM1,000-RM5,000</td></tr><tr><td>3 months</td><td>2.75%</td><td>RM500-RM1,000</td></tr><tr><td>6 months</td><td>2.85%</td><td>RM500-RM1,000</td></tr><tr><td>9 months</td><td>2.90%</td><td>RM500-RM1,000</td></tr></tbody></table></div>
-    <h4>Promotional-rate reference</h4>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Tenure observed</th><th>Observed promo range</th><th>Common conditions</th></tr></thead><tbody><tr><td>3-6 months</td><td>3.40%-3.85%</td><td>Often fresh funds, online placement or customer-tier conditions</td></tr><tr><td>7-9 months</td><td>3.50%-3.82%</td><td>Campaign period and minimum placement commonly apply</td></tr><tr><td>10-12 months</td><td>3.60%-3.80%</td><td>Campaign terms vary by provider</td></tr></tbody></table></div>
-    <div class="note"><strong>Why no bank ranking?</strong> The Reference Centre deliberately avoids promoting individual banks. Promotional rates change frequently and may have conditions. Verify the provider's official terms before placement. Bundled investment/insurance promotions are excluded from these reference ranges.</div>
+  <details class="reference-section" open><summary>MYR Fixed Deposits - Actual Rates</summary><div class="reference-body">
+    <div class="reference-date">Rates checked: Sep 2026 | Board rates and promotions are shown separately</div>
+    <h4>Standard / board rates</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Bank / product</th><th>3M</th><th>6M</th><th>12M</th><th>Rate date</th></tr></thead><tbody>
+      <tr><td>Maybank Fixed Deposit</td><td>1.75%</td><td>1.85%</td><td>1.90%</td><td>21 Jul 2026</td></tr>
+      <tr><td>CIMB Fixed Deposit</td><td>1.75%</td><td>1.85%</td><td>1.90%</td><td>Comparison checked Sep 2026</td></tr>
+      <tr><td>Public Bank eFD / PLUS FD</td><td>1.75%</td><td>1.85%</td><td>1.90%</td><td>Comparison checked Sep 2026</td></tr>
+      <tr><td>Hong Leong eFixed Deposit</td><td>1.75%</td><td>1.85%</td><td>1.90%</td><td>Comparison checked Sep 2026</td></tr>
+      <tr><td>AmBank Conventional FD</td><td>1.65%</td><td>1.75%</td><td>1.80%</td><td>25 Aug 2026</td></tr>
+    </tbody></table></div>
+    <div class="note">Board rates are the ordinary published rates, not temporary campaigns. Rates can change without notice; verify the bank's current rate before placement.</div>
+
+    <h4>Current promotional FD examples</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Bank</th><th>Rate</th><th>Tenure</th><th>Minimum</th><th>Key condition</th><th>Ends</th></tr></thead><tbody>
+      <tr><td>AFFIN</td><td>3.80%-3.82%</td><td>8M</td><td>RM5,000</td><td>New funds; customer tier affects rate</td><td>30 Sep 2026</td></tr>
+      <tr><td>RHB</td><td>3.70% / 3.80%</td><td>7M / 9M</td><td>RM5,000</td><td>New funds</td><td>30 Sep 2026</td></tr>
+      <tr><td>Maybank eIFD-i</td><td>3.40% / 3.60% / 3.70%</td><td>3M / 6M / 12M</td><td>RM1,000 online</td><td>FPX / campaign placement</td><td>30 Sep 2026</td></tr>
+      <tr><td>AmBank eFD/eTD-i</td><td>3.45% / 3.70%</td><td>3M / 10-12M</td><td>RM1,000</td><td>Online reward code</td><td>30 Sep 2026</td></tr>
+      <tr><td>CIMB eFD/-i</td><td>3.40%-3.65%</td><td>3-12M</td><td>RM1,000</td><td>Campaign placement</td><td>30 Sep 2026</td></tr>
+      <tr><td>Public Bank eFD</td><td>3.40%-3.70%</td><td>3-15M</td><td>RM5,000</td><td>FPX / campaign placement</td><td>30 Sep 2026</td></tr>
+      <tr><td>MBSB TD-i</td><td>3.73% / 3.80%</td><td>6M / 12M</td><td>RM1,000</td><td>Fresh funds</td><td>30 Sep 2026</td></tr>
+    </tbody></table></div>
+    <div class="note"><strong>Excluded:</strong> bundled insurance, investment, CASA or wealth-product promotions whose headline FD rate depends on committing money to another product. This keeps the comparison useful for straightforward deposits.</div>
     <a class="reference-link" href="https://ringgitplus.com/en/blog/fixed-deposits/best-fixed-deposit-promotions-and-board-rates-in-malaysia.html" target="_blank" rel="noopener noreferrer">Open current FD comparison &gt;</a>
   </div></details>
 
-  <details class="reference-section"><summary>Bank Savings / Deposit Rates</summary><div class="reference-body">
-    <div class="reference-date">Reference method: compare published base rates separately from conditional / bonus rates</div>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Rate type</th><th>What it means</th><th>What to check</th></tr></thead><tbody><tr><td>Base savings rate</td><td>Rate available without special activity requirements</td><td>Balance tiers and effective rate</td></tr><tr><td>Conditional / bonus rate</td><td>Extra interest for meeting specified conditions</td><td>Salary credit, card spend, bill payment, investment or balance requirements</td></tr><tr><td>Promotional deposit rate</td><td>Temporary campaign rate</td><td>Campaign end date, fresh-funds rules and minimum placement</td></tr></tbody></table></div>
-    <div class="note">A headline savings rate can be misleading if it applies only to part of the balance or requires several conditions. Use the effective rate applicable to your expected balance and behaviour as the planning reference.</div>
-  </div></details>
-
-  <details class="reference-section"><summary>BNM Policy Rate</summary><div class="reference-body">
-    <div class="reference-date">Latest decision: 3 Sep 2026 Â· Source: Bank Negara Malaysia</div>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Date</th><th>OPR change</th><th>OPR level</th></tr></thead><tbody><tr><td>3 Sep 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>9 Jul 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>7 May 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>5 Mar 2026</td><td>0.00%</td><td>2.75%</td></tr><tr><td>22 Jan 2026</td><td>0.00%</td><td>2.75%</td></tr></tbody></table></div>
-    <a class="reference-link" href="https://www.bnm.gov.my/monetary-stability/opr-decisions/-/tag/opr-2026" target="_blank" rel="noopener noreferrer">Open BNM OPR decisions &gt;</a>
+  <details class="reference-section" open><summary>Bank Savings Rates - Actual Published Examples</summary><div class="reference-body">
+    <div class="reference-date">Reference checked: Sep 2026 | Ordinary/basic savings products shown separately from bonus accounts</div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Bank / account</th><th>Published rate</th><th>Minimum deposit</th><th>Notes</th></tr></thead><tbody>
+      <tr><td>Maybank Kawanku Savings</td><td>0.15%-0.25%</td><td>RM50</td><td>Tiered ordinary savings rate</td></tr>
+      <tr><td>CIMB Regular Savings</td><td>0.05%-0.25%</td><td>-</td><td>Tiered; effective 24 Jul 2026</td></tr>
+      <tr><td>Public Bank PLUS Savings</td><td>0.20%-0.80%</td><td>RM250</td><td>Tiered savings account</td></tr>
+      <tr><td>RHB Basic Savings</td><td>0.25%-0.28%</td><td>RM20</td><td>Basic savings reference</td></tr>
+      <tr><td>Hong Leong Basic Savings</td><td>0.25%</td><td>RM20</td><td>Basic savings reference</td></tr>
+      <tr><td>AmBank Basic Savings</td><td>0.25%</td><td>-</td><td>All balances; published base rate</td></tr>
+    </tbody></table></div>
+    <div class="note">Savings-account rates can be tiered. The highest number in a range may apply only to part of the balance. For simulator planning, use the effective rate expected on your own balance rather than automatically using the headline maximum.</div>
+    <h4>Higher-rate savings accounts</h4>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th>Example</th><th>Published rate</th><th>Main qualification</th></tr></thead><tbody>
+      <tr><td>Hong Leong Pay &amp; Save</td><td>1.60%</td><td>Product-specific conditions may apply</td></tr>
+      <tr><td>AmBank AmGenius Savings</td><td>1.65% up to RM100,000</td><td>Above RM100,000 published rate is 0.30%</td></tr>
+      <tr><td>AmBank eFlex Savings</td><td>0.50% base + 1.15% bonus</td><td>Daily balance at least RM20,000 for bonus</td></tr>
+    </tbody></table></div>
+    <a class="reference-link" href="https://ringgitplus.com/en/savings-account/" target="_blank" rel="noopener noreferrer">Open Malaysian savings-account comparison &gt;</a>
   </div></details>
 </section>
 </div>

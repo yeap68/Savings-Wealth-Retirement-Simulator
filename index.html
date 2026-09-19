@@ -237,11 +237,12 @@ const events={savings:[],wealth:[]};let results={savings:null,wealth:null,retire
 function savingsActive(){return num($("sMonthly").value)>0}
 function wealthActive(){return num($("wExisting").value)>0||num($("wAdditional").value)>0||num($("wMonthly").value)>0}
 function anyPlanActive(){return savingsActive()||wealthActive()}
-function num(v){let x=parseFloat(String(v??"").replace(/,/g,""));return Number.isFinite(x)?x:0}
+function parseNumber(v,{blankZero=true}={}){let raw=String(v??"").trim().replace(/,/g,"");if(raw==="")return blankZero?0:NaN;if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw))return NaN;let x=Number(raw);return Number.isFinite(x)?x:NaN}
+function num(v){return parseNumber(v,{blankZero:true})}
 function rm(v){return new Intl.NumberFormat("en-MY",{style:"currency",currency:"MYR",maximumFractionDigits:0}).format(Number.isFinite(v)?v:0)}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function mrate(a){if(!Number.isFinite(a)||a<-1)return NaN;return Math.pow(1+a,1/12)-1}
-const LIMITS={money:1e12,years:100,returnMin:-1,returnMax:5,inflationMax:1,increaseMax:5,solverIncome:1e15,balance:1e18};
+const LIMITS={money:1e12,years:100,returnMin:-1,returnMax:5,inflationMax:1,increaseMax:5,solverIncome:1e15,balance:1e18,maxHoldings:100,maxEvents:500,maxOps:500000};
 function invalidResult(message){return{valid:false,message,end:0,contrib:0,withdraw:0,growth:0,holdings:[]}}
 function safeFinite(v){return Number.isFinite(v)&&Math.abs(v)<=LIMITS.balance}
 function validateCommon(kind,totalYears){
@@ -253,7 +254,7 @@ function validateCommon(kind,totalYears){
 function suspiciousWarnings(kind){let out=[];state[kind].portfolio.forEach(x=>{if(x.rate>.30)out.push(`${x.name} planning return ${(x.rate*100).toFixed(2)}% p.a. is unusually high.`);if(x.rate<-.50)out.push(`${x.name} planning return ${(x.rate*100).toFixed(2)}% p.a. is an extreme loss assumption.`)});return out}
 function moneySafe(v,label){if(!Number.isFinite(v)||v<0)return `${label} must be zero or positive.`;if(v>LIMITS.money)return `${label} above RM1 trillion is blocked as an unsafe input. Please check for extra zeros.`;return ""}
 function moneyFocus(el){el.value=String(el.value).replace(/,/g,"")}
-function moneyBlur(el){el.value=num(el.value).toLocaleString("en-MY",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function moneyBlur(el){let v=num(el.value);if(Number.isFinite(v))el.value=v.toLocaleString("en-MY",{minimumFractionDigits:2,maximumFractionDigits:2})}
 function toggleCustom(sel,input){$(input).classList.toggle("hidden",$(sel).value!=="custom")}
 function selected(sel,custom,percent=false){let v=$(sel).value;if(v!=="custom")return Number(v);let c=num($(custom).value);return percent?c/100:c}
 function yrs(sel,custom){return Math.max(0,Math.round(selected(sel,custom,false)))}
@@ -266,7 +267,7 @@ function newInv(kind,pct=0){return{id:kind[0]+(++uid),type:"custom",name:"Custom
 function productOptions(type){return Object.entries(products).map(([k,p])=>`<option value="${k}" ${k===type?"selected":""}>${esc(p.name)}</option>`).join("")}
 function findInv(kind,id){return state[kind].portfolio.find(x=>x.id===id)}
 function setApproach(kind,mode){state[kind].approach=mode;if(!state[kind].portfolio.length)state[kind].portfolio=[newInv(kind,100)];if(mode==="single"){state[kind].portfolio=[state[kind].portfolio[0]];state[kind].portfolio[0].pct=100;state[kind].portfolio[0].newPct=100;if(kind==="savings")state[kind].portfolio[0].amount=num($("sMonthly").value)}renderPortfolio(kind);renderEvents(kind);recalcAll(false)}
-function addInv(kind){state[kind].portfolio.push(newInv(kind,0));renderPortfolio(kind);recalcAll(false)}
+function addInv(kind){if(state[kind].portfolio.length>=LIMITS.maxHoldings){showGlobalSafety(`A maximum of ${LIMITS.maxHoldings} investments is allowed in one planner to protect mobile performance.`);return}state[kind].portfolio.push(newInv(kind,0));renderPortfolio(kind);recalcAll(false)}
 function removeInv(kind,id){state[kind].portfolio=state[kind].portfolio.filter(x=>x.id!==id);if(!state[kind].portfolio.length)state[kind].portfolio.push(newInv(kind,0));renderPortfolio(kind);renderEvents(kind);recalcAll(false)}
 function equalize(kind){let p=state[kind].portfolio;if(!p.length)return;let base=Math.floor(10000/p.length)/100;p.forEach((x,i)=>x.pct=i===p.length-1?100-base*(p.length-1):base);if(kind==="savings"){let monthly=num($("sMonthly").value),each=monthly/p.length,used=0;p.forEach((x,i)=>{x.amount=i===p.length-1?Math.max(0,monthly-used):each;used+=x.amount})}if(kind==="wealth"&&$("wNewMode").value==="same")p.forEach(x=>x.newPct=x.pct);renderPortfolio(kind);recalcAll(false)}
 function copyCurrentToNew(){state.wealth.portfolio.forEach(x=>x.newPct=x.pct);renderNewAllocation();recalcAll(false)}
@@ -275,7 +276,7 @@ function changeName(kind,id,v){findInv(kind,id).name=v;renderEvents(kind);recalc
 function changePct(kind,id,v){findInv(kind,id).pct=Math.max(0,num(v));if(kind==="wealth"&&$("wNewMode").value==="same")findInv(kind,id).newPct=findInv(kind,id).pct;renderNewAllocation();recalcAll(false)}
 function changeSavingsAmount(id,v){let monthly=num($("sMonthly").value),x=findInv("savings",id);x.amount=Math.max(0,num(v));x.pct=monthly>0?x.amount/monthly*100:0;recalcAll(false)}
 function changeNewPct(id,v){findInv("wealth",id).newPct=Math.max(0,num(v));recalcAll(false)}
-function changeRate(kind,id,v){let x=findInv(kind,id),raw=parseFloat(v);x.rate=x.type==="cash"?0:(Number.isFinite(raw)?raw/100:NaN);recalcAll(false)}
+function changeRate(kind,id,v){let x=findInv(kind,id),raw=parseNumber(v,{blankZero:false});x.rate=x.type==="cash"?0:(Number.isFinite(raw)?raw/100:NaN);recalcAll(false)}
 function renderPortfolio(kind){
  let st=state[kind],target=$(kind==="savings"?"sPortfolio":"wPortfolio"),single=st.approach==="single";
  $(kind==="savings"?"sSingle":"wSingle").classList.toggle("active",single);$(kind==="savings"?"sDiversified":"wDiversified").classList.toggle("active",!single);
@@ -295,7 +296,7 @@ function renderNewAllocation(){
  box.innerHTML+=(p.map(x=>`<div class="investment-card"><div class="inv-head"><strong>${esc(x.name)}</strong></div><div class="form-grid"><div><label>New contribution allocation (%)</label><input type="number" inputmode="decimal" min="0" max="100" step=".01" value="${x.newPct.toFixed(2)}" oninput="changeNewPct('${x.id}',this.value)"><div class="amount-hint">${rm(monthly*x.newPct/100)}/month</div></div><div><label>Current portfolio allocation</label><input value="${x.pct.toFixed(2)}%" disabled></div></div></div>`).join(""));
  box.innerHTML+=`<div class="status ${Math.abs(t-100)<.01?"good":"warn"}">New investment allocation: ${t.toFixed(2)}% | ${t<=100?"Remaining: "+(100-t).toFixed(2)+"%":"Reduce by: "+(t-100).toFixed(2)+"%"}</div><div class="actions"><button class="button small" onclick="copyCurrentToNew()">Copy Current Allocation to New Contributions</button></div>`
 }
-function addWithdrawal(kind){events[kind].push({id:"e"+(++uid),year:1,month:1,amount:0,source:""});renderEvents(kind);recalcAll(false)}
+function addWithdrawal(kind){if(events[kind].length>=LIMITS.maxEvents){showGlobalSafety(`A maximum of ${LIMITS.maxEvents} withdrawal events is allowed in one planner to protect mobile performance.`);return}events[kind].push({id:"e"+(++uid),year:1,month:1,amount:0,source:""});renderEvents(kind);recalcAll(false)}
 function editEvent(kind,id,key,v){let e=events[kind].find(x=>x.id===id);e[key]=key==="source"?v:num(v);recalcAll(false)}
 function removeEvent(kind,id){events[kind]=events[kind].filter(x=>x.id!==id);renderEvents(kind);recalcAll(false)}
 function renderEvents(kind){let target=$(kind==="savings"?"sEvents":"wEvents"),p=state[kind].portfolio;target.innerHTML=events[kind].map(e=>`<div class="event-card"><div class="event-grid"><div><label>Year</label><input type="number" min="1" value="${e.year}" oninput="editEvent('${kind}','${e.id}','year',this.value)"></div><div><label>Month in year</label><input type="number" min="1" max="12" value="${e.month}" oninput="editEvent('${kind}','${e.id}','month',this.value)"></div><div><label>Amount</label><input type="number" inputmode="decimal" min="0" value="${e.amount}" oninput="editEvent('${kind}','${e.id}','amount',this.value)"></div>${state[kind].approach==="single"?`<div><label>Funding source</label><input value="${esc(p[0]?.name||"Single investment")}" disabled></div>`:`<div><label>Funding source</label><select onchange="editEvent('${kind}','${e.id}','source',this.value)"><option value="">Select investment</option>${p.map(x=>`<option value="${x.id}" ${e.source===x.id?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div>`}</div><div class="actions"><button class="button small danger" onclick="removeEvent('${kind}','${e.id}')">Remove</button></div></div>`).join("")}
@@ -303,14 +304,16 @@ function validAlloc(kind){let st=state[kind];if(st.approach==="single")return tr
 function simulate(kind,months,initial,monthly,annualInc=0,contributionMonths=months,eventMonths=months){
  let err=validateCommon(kind,months/12)||moneySafe(initial,"Starting capital")||moneySafe(monthly,"Monthly contribution");if(err)return invalidResult(err);
  if(!Number.isFinite(annualInc)||annualInc<0||annualInc>LIMITS.increaseMax)return invalidResult("Annual contribution increase above 500% is blocked as an unsafe input.");
- let st=state[kind],p=st.portfolio.map(x=>({...x,balance:initial*(st.approach==="single"?1:x.pct/100)})),contrib=0,withdraw=0,invalid="";
+ let st=state[kind],estimatedOps=months*Math.max(1,st.portfolio.length)+events[kind].length;if(st.portfolio.length>LIMITS.maxHoldings||events[kind].length>LIMITS.maxEvents||estimatedOps>LIMITS.maxOps)return invalidResult("Projection is too complex for safe mobile calculation. Reduce the number of investments, withdrawal events, or projection years.");
+ let eventMap=new Map();for(let e of events[kind]){let ey=num(e.year),em=num(e.month),ea=num(e.amount);if(!Number.isFinite(ey)||!Number.isFinite(em)||!Number.isFinite(ea))return invalidResult("A withdrawal contains invalid numeric input. Please correct the highlighted event.");if(ey<1||!Number.isInteger(ey)||em<1||em>12||!Number.isInteger(em))return invalidResult("Withdrawal year and month must be whole numbers, with month between 1 and 12.");let mi=(ey-1)*12+em;if(mi<=eventMonths){if(!eventMap.has(mi))eventMap.set(mi,[]);eventMap.get(mi).push({...e,amount:ea})}}
+ let p=st.portfolio.map(x=>({...x,balance:initial*(st.approach==="single"?1:x.pct/100)})),contrib=0,withdraw=0,invalid="";
  if(p.some(x=>!safeFinite(x.balance)))return invalidResult("Starting allocation produced an unsafe numeric value.");
  for(let m=1;m<=months;m++){
   for(let x of p){let mr=mrate(x.rate);if(!Number.isFinite(mr)){invalid=`${x.name}: planning return is mathematically invalid.`;break}x.balance*=1+mr;if(Math.abs(x.balance)<1e-9)x.balance=0;if(!safeFinite(x.balance)){invalid="Projection exceeded the simulator's safe numeric range. Reduce the amount, return, or time horizon.";break}}
   if(invalid)break;
   if(m<=contributionMonths){let cm=monthly*Math.pow(1+annualInc,Math.floor((m-1)/12));if(!safeFinite(cm)){invalid="Contributions grew beyond the simulator's safe numeric range. Please reduce the annual increase or horizon.";break}for(let x of p){let pct=st.approach==="single"?1:(kind==="wealth"?x.newPct:x.pct)/100,add=cm*pct;if(!safeFinite(add)){invalid="Contribution allocation produced an unsafe numeric value.";break}x.balance+=add;contrib+=add;if(!safeFinite(x.balance)||!safeFinite(contrib)){invalid="Projection exceeded the simulator's safe numeric range.";break}}}
   if(invalid)break;
-  if(m<=eventMonths){for(let e of events[kind].filter(e=>(Math.max(1,e.year)-1)*12+Math.min(12,Math.max(1,e.month))===m)){if(!Number.isFinite(e.amount)||e.amount<0||e.amount>LIMITS.money){invalid="A withdrawal contains an unsafe amount. Please check the value entered.";break}let x=st.approach==="single"?p[0]:p.find(z=>z.id===e.source);if(!x){invalid="Select a funding source for every withdrawal.";break}if(e.amount>x.balance+.01){invalid="A withdrawal exceeds the available balance in its selected investment.";break}x.balance=Math.max(0,x.balance-e.amount);withdraw+=e.amount}}
+  if(m<=eventMonths){for(let e of (eventMap.get(m)||[])){if(!Number.isFinite(e.amount)||e.amount<0||e.amount>LIMITS.money){invalid="A withdrawal contains an unsafe amount. Please check the value entered.";break}let x=st.approach==="single"?p[0]:p.find(z=>z.id===e.source);if(!x){invalid="Select a funding source for every withdrawal.";break}if(e.amount>x.balance+.01){invalid="A withdrawal exceeds the available balance in its selected investment.";break}x.balance=Math.max(0,x.balance-e.amount);withdraw+=e.amount}}
   if(invalid)break;
  }
  let end=p.reduce((a,x)=>a+x.balance,0);if(!safeFinite(end)||!safeFinite(contrib)||!safeFinite(withdraw))return invalidResult("Projection exceeded the simulator's safe numeric range. Please reduce extreme inputs.");
@@ -472,25 +475,19 @@ function renderComplete(){
  let src=sourceAtRetirement(),r=(src.valid&&src.total>0)?results.retirement:null;
  $("completeBody").innerHTML=`<div class="summary-grid"><div class="summary-card"><div class="summary-label">Savings at retirement</div><div class="summary-value">${rm(src.savings)}</div></div><div class="summary-card"><div class="summary-label">Wealth at retirement</div><div class="summary-value">${rm(src.wealth)}</div></div><div class="summary-card"><div class="summary-label">Unique Capital in Hand</div><div class="summary-value good">${rm(src.total)}</div></div><div class="summary-card"><div class="summary-label">Retirement starting income</div><div class="summary-value">${r?rm(r.profile.income)+"/mo":"-"}</div></div><div class="summary-card"><div class="summary-label">Retirement ending capital</div><div class="summary-value">${r?rm(r.end):"-"}</div></div></div><div class="audit"><strong>Reconciliation:</strong> Savings + Wealth = unique financial capital. Retirement is a strategy applied to that capital, not an additional asset.</div>`;
 }
+function showGlobalSafety(message){let id="globalSafetyMessage",box=$(id);if(!box){box=document.createElement("div");box.id=id;box.className="invalid";box.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:90;max-width:720px;margin:auto";box.setAttribute("role","alert");document.body.appendChild(box)}box.innerHTML=`<strong>Projection unavailable</strong><br>${esc(message)}`;box.classList.remove("hidden");clearTimeout(showGlobalSafety._t);showGlobalSafety._t=setTimeout(()=>box.classList.add("hidden"),6500)}
+function clearPublishedResults(){results={savings:null,wealth:null,retirement:null};["sResults","wResults","rResults"].forEach(id=>{let el=$(id);if(el)el.classList.add("hidden")});if($("rProfiles"))$("rProfiles").innerHTML="";try{renderLedger();renderTimeline();renderComplete()}catch(_){}}
+function validateRuntimeInputs(){for(let el of document.querySelectorAll('input[type="number"]')){let raw=String(el.value??"").trim();if(raw!==""&&!Number.isFinite(parseNumber(raw,{blankZero:false})))return "One or more numeric fields contain an invalid number. Use ordinary digits and a decimal point only (for example 8.5, not scientific notation or text)."}return ""}
 function recalcAll(scroll=false){
- results.savings=savingsActive()?calculateSavings():null;
- results.wealth=wealthActive()?calculateWealth():null;
-
- renderLedger();
- renderTimeline();
-
- let src=sourceAtRetirement();
- if(src.valid&&src.total>0){
-   results.retirement=calculateRetirement();
- }else{
-   results.retirement=null;
-   if($("retirementNotReady"))$("retirementNotReady").style.display="block";
-   if($("retirementReady"))$("retirementReady").style.display="none";
-   if($("rProfiles"))$("rProfiles").innerHTML="";
-   if($("rResults"))$("rResults").classList.add("hidden");
- }
- renderComplete();
- if(scroll)window.scrollTo({top:0,behavior:"smooth"});
+ try{
+  let inputErr=validateRuntimeInputs();if(inputErr){clearPublishedResults();showGlobalSafety(inputErr);return}
+  results.savings=savingsActive()?calculateSavings():null;
+  results.wealth=wealthActive()?calculateWealth():null;
+  renderLedger();renderTimeline();
+  let src=sourceAtRetirement();
+  if(src.valid&&src.total>0){results.retirement=calculateRetirement()}else{results.retirement=null;if($("retirementNotReady"))$("retirementNotReady").style.display="block";if($("retirementReady"))$("retirementReady").style.display="none";if($("rProfiles"))$("rProfiles").innerHTML="";if($("rResults"))$("rResults").classList.add("hidden")}
+  renderComplete();if(scroll)window.scrollTo({top:0,behavior:"smooth"});
+ }catch(err){console.error("Engine safety stop",err);clearPublishedResults();showGlobalSafety("An unexpected calculation error was safely stopped. Your entered data has been preserved; correct the latest input and try again.")}
 }
 window.addEventListener("scroll",()=>{let up=$("scrollTop");if(up)up.classList.toggle("show",window.scrollY>500);let bar=$("branchBar");if(bar&&bar.dataset.screen)bar.classList.toggle("show",window.scrollY>150)});
 renderPortfolio("savings");renderPortfolio("wealth");renderEvents("savings");renderEvents("wealth");recalcAll(false);
